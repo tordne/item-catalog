@@ -55,6 +55,14 @@ source env/bin/activate
 pip install -r requirements.txt
 export FLASK_APP=catalog.py
 ```
+To configure the environment with all your keys from google OAuth2.0 do the following:
+* `cp /vagrant/config-template.py /vagrant/cofig.py` 
+* Open config.py and change all the Secret codes and client id's as needed.
+* export the last 3 env variables to ensure the config file is read properly
+```
+export FLASK_CONFIG=/vagrant/config.py
+export FLASK_SETTINGS=config.DevelopmentConfig
+```
 
 #### Virtual Environment
 ```
@@ -63,6 +71,20 @@ python3.6 -m venv env
 source env/bin/activate
 pip install -r requirements.txt
 eport FLASK_APP=catalog.py
+```
+To configure the environment with all your keys from google OAuth2.0 do the following:
+* `cp ~/item-catalog/config-template.py ~/item-catalog/cofig.py` 
+* Open config.py and change all the Secret codes and client id's as needed.
+* export the last 3 env variables to ensure the config file is read properly
+```
+export FLASK_CONFIG=~/item-catalog/config.py
+export FLASK_SETTINGS=config.DevelopmentConfig
+```
+
+#### Last Configuartions for Vagrant and Venv 
+* Running the flask app by script doesn't activate debug anymore and it needs to be activated by an env variable
+```
+export FLASK_DEBUG=1
 ```
 
 ## How to run the site
