@@ -3,6 +3,9 @@ env
 .vagrant
 __pycache__
 
+# Sphinx doc build folder
+doc/build*
+
 
 # Backup files from vim, emacs and python
 *.pyc
