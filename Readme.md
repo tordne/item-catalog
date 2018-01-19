@@ -81,7 +81,7 @@ export FLASK_CONFIG=~/item-catalog/config.py
 export FLASK_SETTINGS=config.DevelopmentConfig
 ```
 
-#### Last Configuartions for Vagrant and Venv 
+#### Last Configurations for Vagrant and Venv 
 * Running the flask app by script doesn't activate debug anymore and it needs to be activated by an env variable
 ```
 export FLASK_DEBUG=1
