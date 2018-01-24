@@ -6,10 +6,12 @@ Public
 Categories
 ^^^^^^^^^^
 * / and /catalog -- list all the categories
+
 Items
 ^^^^^
 * /catalog/<str:category> -- list all the items under the category
 * /catalog/<str:category>/<str:item> -- list information about the item
+
 Authentication
 ^^^^^^^^^^^^^^
 * /login -- login with google account
@@ -19,7 +21,7 @@ Authentication
 Private
 -------
 Categories
-^^^^^^^^
+^^^^^^^^^^
 * /catalog/new -- create a new category
 * /catalog/<str:category>/edit -- edit a category
 * /catalog/<str:category>/delete -- delete a category
