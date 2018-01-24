@@ -10,9 +10,6 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 8000, host: 8000, host_ip: "127.0.0.1"
   config.vm.network "forwarded_port", guest: 8080, host: 8080, host_ip: "127.0.0.1"
   config.vm.network "forwarded_port", guest: 5000, host: 5000, host_ip: "127.0.0.1"
-  #config.vm.network "forwarded_port", guest: 8000, host: 8000
-  #config.vm.network "forwarded_port", guest: 8080, host: 8080
-  #config.vm.network "forwarded_port", guest: 5000, host: 5000
 
   # Synchronise the vagrant folder with NFS
   config.vm.synced_folder ".", "/vagrant", type: "nfs", nfs_udp: false
@@ -82,9 +79,8 @@ Vagrant.configure("2") do |config|
   # Install new Virtual Environment
   python3.6 -m venv env
 
-  vagrantTip="[35m[1mThe shared directory is located at /vagrant\\nTo access your shared files: cd /vagrant[m"
+  vagrantTip="[35m[1mThe shared directory is located at /vagrant \\nTo access your shared files: cd /vagrant[m"
   echo -e $vagrantTip > /etc/motd
-
 
   echo "Done installing your virtual machine!"
   SHELL
