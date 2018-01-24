@@ -22,8 +22,16 @@ I have made the time to look into other packages to improve my workflow, and loo
 This improves the writing of README and other docs, and will organise all the information needed to get the project started.
 
 
-Table of Contents
------------------
+System Installation
+-------------------
+.. toctree::
+	:maxdepth: 3
+
+	installation/system.rst
+
+
+The Catalog
+-----------
 .. toctree::
    :maxdepth: 2
 
