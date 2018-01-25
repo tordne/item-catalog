@@ -6,6 +6,8 @@ __pycache__
 # Sphinx doc build folder
 doc/build*
 
+# Unittesting & Coverage
+.coverage
 
 # Backup files from vim, emacs and python
 *.pyc
