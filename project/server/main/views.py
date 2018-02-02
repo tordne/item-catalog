@@ -1,6 +1,6 @@
 # project/server/main/views.py
 
-from flask import Blueprint
+from flask import Blueprint, render_template
 
 
 ''' Configuration '''
@@ -16,13 +16,13 @@ main_blueprint = Blueprint('main', __name__,)
 @main_blueprint.route('/')
 @main_blueprint.route('/catalog')
 def list_categories():
-    return "This is a Catalog"
+    return render_template('main/catalog.html')
 
 
 # Route showing all the items under category
 @main_blueprint.route('/catalog/<string:category>')
 def list_items(category):
-    return "This is a category with a list of items"
+    return render_template('main/items.html', category=category)
 
 
 # Route showing information about the item
