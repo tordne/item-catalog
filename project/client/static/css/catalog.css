@@ -52,6 +52,15 @@ p {
 	text-decoration: none;
 }
 
+
+.cancel {
+	background-color: #b60020;
+}
+
+.create {
+	background-color: #00a20d;
+}
+
 /*
  *
  * header

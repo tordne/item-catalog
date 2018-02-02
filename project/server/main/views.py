@@ -40,7 +40,7 @@ def info_item(category, item):
 # Create a new Category
 @main_blueprint.route('/catalog/new')
 def category_new():
-    return "Create a new category"
+    return render_template('main/category_new.html')
 
 
 # Route to edit the category
