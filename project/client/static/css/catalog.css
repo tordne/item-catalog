@@ -24,6 +24,34 @@ p {
 	margin: 3px;
 }
 
+
+/*
+ *
+ * Buttons
+ *
+ */
+
+.button {
+	padding: 5px;
+	margin: 5px;
+	border: 3px solid #423e28;
+	border-color: #423e28;
+	background-color : #50723c;
+	border-radius: 15px;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.26);
+	min-width: 80px;
+	height: 50px;
+	float: left;
+	display: inline-block;
+	/* Text */
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 22px;
+	font-weight: bold;
+	color: #adeee3;
+	text-align: center;
+	text-decoration: none;
+}
+
 /*
  *
  * header
@@ -49,6 +77,7 @@ p {
 	font-family: 'Fjalla One', sans-serif;
 	font-size: 2em;
 	color: #50723c;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.26);
 	margin-top: 12px;
 	margin-bottom: auto;
 	float: left;
@@ -57,12 +86,13 @@ p {
 
 .header-button {
 	padding: 5px;
-	margin: 2px;
+	margin-right: 5px;
+	margin-top: 4px;
 	border: 3px solid #423e28;
 	border-color: #423e28;
 	background-color : #50723c;
 	border-radius: 15px;
-	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.26);
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.26);
 	min-width: 80px;
 	height: 50px;
 	float: right;
@@ -96,6 +126,13 @@ main {
 	flex-wrap: wrap;
 }
 
+.main-buttons {
+	width: 800px;
+	max-width: 100%;
+	margin-left: auto;
+	margin-right:auto;
+}
+
 /*
  *
  * Categories
@@ -110,7 +147,7 @@ main {
 	background-color : #50723c;
 	border-radius: 50px;
 	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.26);
-	width: 280px;
+	width: 290px;
 	min-height: 300px;
 }
 
@@ -134,7 +171,7 @@ main {
 	background-color : #50723c;
 	border-radius: 50px;
 	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.26);
-	width: 480px;
+	width: 490px;
 	min-height: 300px;
 }
 
