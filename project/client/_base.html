@@ -8,9 +8,16 @@
 	<meta name="description" content="Udacity Catalog project">
 	<meta name="author" content="Christopher Berdahl">
 	<!-- Styles -->
+	<link href="https://fonts.googleapis.com/css?family=Fjalla+One|Open+Sans+Condensed:300" rel="stylesheet">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/catalog.css')}}" media="screen">
 </head>
 <body>
+
+	{% include 'header.html' %}
+
+
+	<!-- child template -->
+	{% block content %}{% endblock %}
 
 </body>
 </html>
