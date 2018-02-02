@@ -156,7 +156,6 @@ main {
 }
 
 
-
 /*
  *
  * Items
@@ -180,6 +179,25 @@ main {
 }
 
 
-/* #   adeee3*/
+/*
+ *
+ * Description
+ *
+ */
 
+.description {
+	padding: 25px;
+	margin: 5px;
+	border: 5px solid #423e28;
+	border-color: #423e28;
+	background-color : #50723c;
+	border-radius: 50px;
+	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.26);
+	width: 790px;
+	min-height: 300px;
+}
+
+.description h1, p {
+	color: #adeee3;
+}
 

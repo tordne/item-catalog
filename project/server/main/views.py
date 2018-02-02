@@ -28,7 +28,10 @@ def list_items(category):
 # Route showing information about the item
 @main_blueprint.route('/catalog/<string:category>/<string:item>')
 def info_item(category, item):
-    return "This is a description of the item"
+    return render_template(
+        'main/description.html',
+        category=category,
+        item=item)
 
 
 ''' Private Routes '''
