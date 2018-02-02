@@ -1,9 +1,19 @@
 {% extends "_base.html" %}
 
 {% block content %}
-
-<h1>List all the items</h1>
-
-<p>List the Items of Category: {{ category }} </p>
-
+<section class="main-inner">
+	<section class="main-buttons">
+		<a href="" class="button">Add Item</a>
+	</section>
+	<section class="categories">
+		<h1>Categories:</h1>
+		<p>Baseball</p>
+		<p>Football</p>
+	</section>
+	<section class="items">
+		<h1>Items under: {{ category }}</h1>
+		<p>shoes</p>
+		<p>shorts</p>
+	</section>
+</section>
 {% endblock %}
