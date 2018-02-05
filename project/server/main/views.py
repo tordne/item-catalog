@@ -70,4 +70,7 @@ def item_edit(category, item):
 # Route to delete the item
 @main_blueprint.route('/catalog/<string:category>/<string:item>/delete')
 def item_delete(category, item):
-    return "Delete the category"
+    return render_template(
+    	'main/item_delete.html',
+    	category=category,
+    	item=item)
