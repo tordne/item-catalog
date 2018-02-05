@@ -2,19 +2,13 @@
 
 {% block content %}
 <section class="main-inner">
-	<section class="main-buttons">
-		<a href="" class="button cancel">Cancel</a>
-		<a href="" class="button create">Create</a>
-	</section>
-	<section class="categories">
-		<h1>Categories:</h1>
-		<p>Baseball</p>
-		<p>Football</p>
-	</section>
-	<section class="items">
-		<h1>Recently Added Items:</h1>
-		<p>shoes</p>
-		<p>shorts</p>
-	</section>
+	<form action="{{ url_for('main.category_new') }}" method="POST" class="flex">
+		<div class="main-buttons">
+			<a href="{{ url_for('main.list_categories') }}" class="button cancel">Cancel</a>
+			<button type="submit" class="button create">Create</button>
+		</div>
+		<input type="text" name="category" value="New Category" class="input-oneline">
+	</form>
+
 </section>
 {% endblock %}
