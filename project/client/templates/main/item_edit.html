@@ -1,0 +1,21 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<section class="main-inner">
+	<form action="{{ url_for('main.item_delete', category=category, item=item) }}" method="POST" class="flex">
+		<div class="main-buttons">
+			<a href="{{ url_for('main.list_categories') }}" class="button cancel">Cancel</a>
+			<button type="submit" class="button create">Edit</button>
+		</div>
+		<label class="input-label">Title</label>
+		<input type="text" name="item" value="{{ item }}" class="input-oneline">
+		<label class="input-label">Description</label>
+		<textarea name="item" value="{{ item }}" class="input-multiline"></textarea>
+		<label class=input-label>Category</label>
+		<select class="input-dropdown">
+			<option value="{{ category }}">{{ category }}</option>
+		</select>
+	</form>
+
+</section>
+{% endblock %}
