@@ -46,7 +46,7 @@ def category_new():
 # Route to edit the category
 @main_blueprint.route('/catalog/<string:category>/edit')
 def category_edit(category):
-    return "Edit the category"
+    return render_template('main/category_edit.html', category=category)
 
 
 # Route to delete the category
