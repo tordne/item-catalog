@@ -1,0 +1,15 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<section class="main-inner">
+	<form action="{{ url_for('main.item_new', category=category) }}" method="POST" class="flex">
+		<div class="main-buttons">
+			<a href="{{ url_for('main.list_categories') }}" class="button cancel">Cancel</a>
+			<button type="submit" class="button create">Create</button>
+		</div>
+		<label class="input-label">Create a New Item</label>
+		<input type="text" name="item" value="New Item" class="input-oneline">
+	</form>
+
+</section>
+{% endblock %}

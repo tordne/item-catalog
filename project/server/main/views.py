@@ -58,22 +58,24 @@ def category_delete(category):
 # Create a new item
 @main_blueprint.route('/catalog/<string:category>/new')
 def item_new(category):
-    return "Create a new item"
+    return render_template(
+        'main/item_new.html',
+        category=category)
 
 
 # Route to edit the item
 @main_blueprint.route('/catalog/<string:category>/<string:item>/edit')
 def item_edit(category, item):
     return render_template(
-    	'main/item_edit.html',
-    	category=category,
-    	item=item)
+        'main/item_edit.html',
+        category=category,
+        item=item)
 
 
 # Route to delete the item
 @main_blueprint.route('/catalog/<string:category>/<string:item>/delete')
 def item_delete(category, item):
     return render_template(
-    	'main/item_delete.html',
-    	category=category,
-    	item=item)
+        'main/item_delete.html',
+        category=category,
+        item=item)
