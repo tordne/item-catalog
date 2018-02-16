@@ -26,6 +26,7 @@ class BaseConfig(object):
 class DevelopmentConfig(BaseConfig):
     ''' Development configuration '''
     DEBUG = True
+    SQLALCHEMY_DATABASE_URI ='postgresql://vagrant:vagrant@localhost/catalog'
 
 
 class TestingConfig(BaseConfig):

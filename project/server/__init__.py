@@ -5,6 +5,11 @@ import pdb
 
 from flask import Flask
 
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+from project.server.models import Base, User, Category, Item
+
 
 ''' Create Flask instance and set Application Environment
 through the APP_SETTINGS environmental variable.
@@ -20,6 +25,21 @@ app_settings = os.getenv(
     'FLASK_SETTINGS', 'config.DevelopmentConfig')
 app.config.from_object(app_settings)
 app.config.from_envvar('FLASK_CONFIG')
+
+
+''' SQLAlchemy: Create engine, Bind tables, setup staging zone
+and create a session
+'''
+
+# Create an engine connecting to the DB
+engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+# Bind the tables metadata to the engine
+Base.metadata.bind = engine
+
+# Create a staging zone with the engine
+DBSession = sessionmaker(bind=engine)
+# Create a session connecting to the staging zone
+session = DBSession()
 
 
 ''' Blueprints
