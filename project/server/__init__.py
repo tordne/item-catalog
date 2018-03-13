@@ -49,3 +49,5 @@ the blueprints are registered in the app.
 
 from project.server.main.views import main_blueprint
 app.register_blueprint(main_blueprint)
+from project.server.user.views import user_blueprint
+app.register_blueprint(user_blueprint)
