@@ -200,6 +200,42 @@ p {
 
 /*
  *
+ * Flash Messages
+ *
+ */
+
+.alert {
+	margin: 5px;
+	background-color : #b5fb8b;
+	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.26);
+	width: 800px;
+	max-width: 97%;
+	min-height: 30px;
+	vertical-align: middle;
+}
+
+.alert-text {
+	font-size: 1.4em;
+}
+
+.alert-close {
+	text-decoration: none;
+	text-shadow: 3px 3px 5px black;
+	float: right;
+	padding-right: 8px;
+	cursor: pointer;
+}
+
+.alert-success {
+	background-color : #b5fb8b;
+}
+
+.alert-warning {
+	background-color: #fba38b;
+}
+
+/*
+ *
  * Main
  *
  */
@@ -218,6 +254,13 @@ main {
 }
 
 .main-buttons {
+	width: 800px;
+	max-width: 100%;
+	margin-left: auto;
+	margin-right:auto;
+}
+
+.main-messages {
 	width: 800px;
 	max-width: 100%;
 	margin-left: auto;
