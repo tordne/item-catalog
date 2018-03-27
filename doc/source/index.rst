@@ -35,6 +35,19 @@ The Catalog
 .. toctree::
    :maxdepth: 2
 
+   topics/blueprints
    topics/specification
    topics/routing
    topics/database
+
+
+Code
+----
+.. qrefflask:: catalog:app
+	:undoc-static:
+
+
+Code Full
+---------
+.. autoflask:: catalog:app
+	:undoc-static:
