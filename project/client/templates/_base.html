@@ -27,8 +27,8 @@
         	{% for category, message in messages %}
             <div class="alert alert-{{ category }} alert-dismissable">
             	<div class="alert-text">
+	              {{message}}
 	              <a class="alert-close" title="Close" data-dismiss="alert">&times;</a>
-	             {{message}}
              </div>
             </div>
           {% endfor %}
