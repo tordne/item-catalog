@@ -65,7 +65,8 @@ Vagrant.configure("2") do |config|
   # Install Redis server
   yum -y install redis jemalloc
 
-  # Install texlive for sphinx - pdflatex
+  # Install texlive and graphviz for sphinx - pdflatex
+  yum install graphviz-python
   yum install perl-Digest-MD5
   cd /home/vagrant
   . /home/vagrant/install_tex.sh
