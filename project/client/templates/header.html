@@ -1,6 +1,10 @@
 <header class="header">
 	<div class="header-inner">
 		<h2 class="header-title">Catalog</h2>
-		<a href="{{ url_for('user.authorize') }}" id="login-button" class="header-button">Login</a>
+		{% if 'name' not in session %}
+			<a href="{{ url_for('user.authorize') }}" id="login-button" class="header-button">Login</a>
+		{% else %}
+			<a href="{{ url_for('user.revoke') }}" id="login-button" class="header-button">Logout</a>
+		{% endif %}
 	</div>
 </header>
