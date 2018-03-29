@@ -43,6 +43,8 @@ extensions = ['sphinx.ext.todo',
 
 autodoc_default_flags = ['members']
 autosummary_generate = True
+autodoc_member_order = 'groupwise'
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -135,7 +137,7 @@ latex_elements = {
 
     # The font size ('10pt', '11pt' or '12pt').
     #
-    'pointsize': '10pt',
+    'pointsize': '9pt',
 
     # Additional stuff for the LaTeX preamble.
     #

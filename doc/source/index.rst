@@ -38,16 +38,5 @@ The Catalog
    topics/blueprints
    topics/specification
    topics/routing
+   topics/helpers
    topics/database
-
-
-Code
-----
-.. qrefflask:: catalog:app
-	:undoc-static:
-
-
-Code Full
----------
-.. autoflask:: catalog:app
-	:undoc-static:
