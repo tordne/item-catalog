@@ -21,6 +21,11 @@ def list_categories():
     .. :quickref: Home; List all the categories
 
     :return: Render the catalog template
+
+    .. todo:: def list_categories()
+
+        * list all the categories
+        * list the 5 latest items with the corresponding category in ()
     '''
     return render_template('main/catalog.html')
 

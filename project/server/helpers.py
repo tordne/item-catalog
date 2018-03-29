@@ -28,6 +28,15 @@ def login_required(f):
 
 
 def credentials_to_dict(credentials):
+    '''
+    .. py:function:: credentials_to_dict(credentials)
+
+        Take the credentials and return it as a dict.
+
+        :params credentials: a constructed credentials
+        :return: a dict with the following keys: token, expiry, refresh, token_uri \
+            client_id, client_secret, scopes
+    '''
     return {'token': credentials.token,
     		'expiry': credentials.expiry,
             'refresh': credentials.refresh_token,
