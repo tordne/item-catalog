@@ -40,7 +40,7 @@ def getUserInfo():
         params={'access_token': credentials['token']})
 
     data = json.loads(response.text)
-    # pdb.set_trace()
+
     status_code = getattr(response, 'status_code')
     if status_code == 200:
         return data
@@ -71,7 +71,6 @@ def authorize():
 
     .. :quickref: User; Create a flow instance to manage the OAuth2
     '''
-    pdb.set_trace()
     # Create the flow instance using the client secret file
     flow = Flow.from_client_secrets_file(
         CLIENT_SECRET_FILE, scopes=SCOPES)
@@ -122,10 +121,13 @@ def oauth2callback():
     # PLACE ALL TOKENS IN THE DATABASE
     session['credentials'] = credentials_to_dict(credentials)
 
+    # Retrieve userinfo with the session['credentials']
     data = getUserInfo()
+    # Add the userinfo into the session dict
     session.update(data)
+    # Create a logged_in key with a boolean value True
     session['logged_in'] = True
-    #pdb.set_trace()
+
     # Flash message of correct login
     flash('User {} is authorized'.format(data['name']), 'success')
 
@@ -153,6 +155,7 @@ def revoke():
         headers={'content-type': 'application/x-www-form-urlencoded'}
     )
 
+    # When successfully revoked, clear the session of all data
     session.clear()
 
     status_code = getattr(revoke, 'status_code')
