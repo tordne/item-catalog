@@ -8,7 +8,9 @@ from flask import Flask
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+
 from project.server.models import Base, User, Category, Item
+from project.server.helpers import login_required, credentials_to_dict
 
 
 ''' Create Flask instance and set Application Environment
@@ -39,7 +41,7 @@ Base.metadata.bind = engine
 # Create a staging zone with the engine
 DBSession = sessionmaker(bind=engine)
 # Create a session connecting to the staging zone
-session = DBSession()
+pg_session = DBSession()
 
 
 ''' Blueprints
