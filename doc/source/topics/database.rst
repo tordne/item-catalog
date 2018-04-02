@@ -16,6 +16,6 @@ Item
 .. autoclass:: project.server.models.Item
 
 
-Authentication
---------------
-.. autoclass:: project.server.models.Authentication
+Credential
+----------
+.. autoclass:: project.server.models.Credential

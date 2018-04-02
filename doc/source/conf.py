@@ -39,12 +39,14 @@ extensions = ['sphinx.ext.todo',
     'sphinxcontrib.httpdomain',
     'sphinxcontrib.autohttp.flask',
     'sphinxcontrib.autohttp.flaskqref',
+    'sphinxcontrib.plantuml',
     ]
 
 autodoc_default_flags = ['members']
 autosummary_generate = True
 autodoc_member_order = 'groupwise'
 
+plantuml = 'java -jar /vagrant/plantuml.jar'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
