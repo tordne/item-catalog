@@ -22,14 +22,12 @@ import sys
 
 sys.path.insert(0, os.path.abspath('../..'))
 print(os.path.abspath('../..'))
-<<<<<<< HEAD
 
 # Install mock modules
 autodoc_mock_imports = []
 
 autodoc_mock_imports.append('sqlalchemy')
-=======
->>>>>>> 5b700578e3abca9656eb909689f5f07ad5c0d27b
+
 
 # -- General configuration ------------------------------------------------
 
