@@ -1,6 +1,10 @@
 Databases
 =========
 
+.. sadisplay::
+	:module: project.server.models
+
+
 User
 ----
 .. autoclass:: project.server.models.User

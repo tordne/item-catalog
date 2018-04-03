@@ -19,8 +19,17 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('/vagrant'))
-print(os.path.abspath('/vagrant'))
+
+sys.path.insert(0, os.path.abspath('../..'))
+print(os.path.abspath('../..'))
+<<<<<<< HEAD
+
+# Install mock modules
+autodoc_mock_imports = []
+
+autodoc_mock_imports.append('sqlalchemy')
+=======
+>>>>>>> 5b700578e3abca9656eb909689f5f07ad5c0d27b
 
 # -- General configuration ------------------------------------------------
 
@@ -40,13 +49,17 @@ extensions = ['sphinx.ext.todo',
     'sphinxcontrib.autohttp.flask',
     'sphinxcontrib.autohttp.flaskqref',
     'sphinxcontrib.plantuml',
+    'sphinxcontrib.sadisp',
     ]
 
 autodoc_default_flags = ['members']
 autosummary_generate = True
 autodoc_member_order = 'groupwise'
 
-plantuml = 'java -jar /vagrant/plantuml.jar'
+plantuml = 'java -jar ../../plantuml.jar'.split()
+graphviz = 'dot -Tpdf -Gsize=10'.split()
+
+sadisplay_default_render = 'graphviz'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

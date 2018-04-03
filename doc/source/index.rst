@@ -13,6 +13,7 @@ Since then there have been a lot of software updates and many packages are no lo
 
 With this project the reigns are handed over to the student, and I wanted to make good use of this opportunity.
 The project is small, but I've used a directory and file structure for larger projects with the following:
+
 	* Flask Blueprints: seperate all the different sections
 	* Flask scripts: Run the site with the flask CL
 	* Client / Server: All the files are segregated to Client and Server files
