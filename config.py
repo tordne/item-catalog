@@ -33,6 +33,7 @@ class DevelopmentConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI ='postgresql://vagrant:vagrant@localhost:5432/catalog'
     OAUTHLIB_INSECURE_TRANSPORT = '1'
 
+
 class TestingConfig(BaseConfig):
     ''' Testing configuration '''
     DEBUG = False
