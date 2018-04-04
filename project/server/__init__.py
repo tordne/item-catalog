@@ -9,7 +9,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from project.server.models import Base, User, Category, Item
+from project.server.models import Base, User, Category, Item, Credential
 from project.server.helpers import login_required, credentials_to_dict
 
 
