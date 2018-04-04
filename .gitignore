@@ -19,7 +19,7 @@ doc/build*
 *.log
 
 # All the config.py files which contain sensitive information
-#config.py
+config.py
 
 # Google Client ID for Web application JSON
-#client_secret.json
+client_secret.json
