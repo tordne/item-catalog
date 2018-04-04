@@ -30,7 +30,7 @@ class BaseConfig(object):
 class DevelopmentConfig(BaseConfig):
     ''' Development configuration '''
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI ='    postgres://zvgsfhrfwpwtpp:7d99d0124d962fa91797a4e7d7e84e490675d9e64931ef24746f1b7d73863db9@ec2-54-247-81-88.eu-west-1.compute.amazonaws.com:5432/dlqk04fpmr09u' # NOQA
+    SQLALCHEMY_DATABASE_URI =os.environ['DATABASE_URL'] # NOQA
     OAUTHLIB_INSECURE_TRANSPORT = '1'
 
 
