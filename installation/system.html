@@ -1,0 +1,146 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>System Installation &#8212; Catalog 1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Blue Prints" href="../topics/blueprints.html" />
+    <link rel="prev" title="Udacity FSWD Project 4 - Item Catalog" href="../index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="system-installation">
+<h1>System Installation<a class="headerlink" href="#system-installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="host-system">
+<h2>Host System<a class="headerlink" href="#host-system" title="Permalink to this headline">¶</a></h2>
+<p>The host system used for this project was CentOS 7 with the following versions of software used.</p>
+<ul class="simple">
+<li>CentOS 7 with kernel 4.13.5</li>
+<li>Vagrant 2.0.1</li>
+<li>VirtualBox Version 5.2.6 r120293 (Qt5.6.1)</li>
+<li>NFS 1.3.0</li>
+<li>Firewalld 0.4.4.4</li>
+</ul>
+</div>
+<div class="section" id="how-to-install">
+<h2>How to Install<a class="headerlink" href="#how-to-install" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="download-the-project">
+<h3>Download the project<a class="headerlink" href="#download-the-project" title="Permalink to this headline">¶</a></h3>
+<p>Open a terminal and download teh full project:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/tordne/item-catalog.git
+</pre></div>
+</div>
+</div>
+<div class="section" id="nfs">
+<h3>NFS<a class="headerlink" href="#nfs" title="Permalink to this headline">¶</a></h3>
+<p>Vagrant and CentOS have issues with rsync-auto, and the shared folder doesn’t automatically update. For this reason and also increased performace, this Vagrantfile is configured to use NFS.</p>
+<p>We just need to make sure that our firewall allows all the NFS ports.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>firewall-cmd --permanent --add-service<span class="o">=</span>nfs
+firewall-cmd --permanent --add-service<span class="o">=</span>mountd
+firewall-cmd --permanent --add-service<span class="o">=</span>rpc-bind
+firewall-cmd --reload
+</pre></div>
+</div>
+</div>
+<div class="section" id="vagrant">
+<h3>Vagrant<a class="headerlink" href="#vagrant" title="Permalink to this headline">¶</a></h3>
+<p>Enter the project folder and install the new virtual server.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> item-catalog
+vagrant up
+</pre></div>
+</div>
+<p>To enter the server and set up the environment enter the following code:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>vagrant ssh
+<span class="nb">cd</span> /vagrant
+<span class="nb">source</span> env/bin/activate
+pip install -r requirements.txt
+</pre></div>
+</div>
+</div>
+<div class="section" id="flask">
+<h3>Flask<a class="headerlink" href="#flask" title="Permalink to this headline">¶</a></h3>
+<p>To configure the environment with all your keys from google OAuth2.0 do the following:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cp /vagrant/config-template.py /vagrant/cofig.py
+</pre></div>
+</div>
+<p>Open config.py and change all the Secret codes and client id’s as needed.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter">Udacity FSWD Project 4 - Item Catalog</a></li>
+      <li>Next: <a href="../topics/blueprints.html" title="next chapter">Blue Prints</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Christopher Berdahl.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/installation/system.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

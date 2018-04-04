@@ -1,0 +1,375 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Routing &#8212; Catalog 1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Global Helpers" href="helpers.html" />
+    <link rel="prev" title="Project Specification – Item Catalog" href="specification.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="routing">
+<h1>Routing<a class="headerlink" href="#routing" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="20%" />
+<col width="45%" />
+<col width="35%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Resource</th>
+<th class="head">Operation</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Category</td>
+<td><a class="reference external" href="#get--catalog-(string-category)">GET /catalog/(string:category)</a></td>
+<td>List all the items</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td><a class="reference external" href="#get--catalog-(string-category)-delete">GET /catalog/(string:category)/delete</a></td>
+<td>Delete the given category</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td><a class="reference external" href="#get--catalog-(string-category)-edit">GET /catalog/(string:category)/edit</a></td>
+<td>Edit the given category</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td><a class="reference external" href="#get--catalog-new">GET /catalog/new</a></td>
+<td>Create a new category</td>
+</tr>
+<tr class="row-even"><td>Home</td>
+<td><a class="reference external" href="#get--catalog">GET /catalog</a></td>
+<td>List all the categories</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td><a class="reference external" href="#get--">GET /</a></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Item</td>
+<td><a class="reference external" href="#get--catalog-(string-category)-(string-item)">GET /catalog/(string:category)/(string:item)</a></td>
+<td>List the item info</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td><a class="reference external" href="#get--catalog-(string-category)-(string-item)-delete">GET /catalog/(string:category)/(string:item)/delete</a></td>
+<td>Delete the given item</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td><a class="reference external" href="#get--catalog-(string-category)-(string-item)-edit">GET /catalog/(string:category)/(string:item)/edit</a></td>
+<td>Edit the given item</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td><a class="reference external" href="#get--catalog-(string-category)-new">GET /catalog/(string:category)/new</a></td>
+<td>Create a new item</td>
+</tr>
+<tr class="row-even"><td>User</td>
+<td><a class="reference external" href="#get--authorize">GET /authorize</a></td>
+<td>Create a flow instance to manage the OAuth2</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td><a class="reference external" href="#get--gconnect">GET /gconnect</a></td>
+<td>Fetch the Oauth2 tokens and store credentials</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td><a class="reference external" href="#get--revoke">GET /revoke</a></td>
+<td>Revoke user access by removing credentials</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="route-details">
+<h2>Route Details<a class="headerlink" href="#route-details" title="Permalink to this headline">¶</a></h2>
+<dl class="get">
+<dt id="get--authorize">
+<code class="descname">GET </code><code class="descname">/authorize</code><a class="headerlink" href="#get--authorize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a flow instance to manage the OAuth2 Authorization Grant Flow steps</p>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--catalog">
+<code class="descname">GET </code><code class="descname">/catalog</code><a class="headerlink" href="#get--catalog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="get">
+<dt id="get--">
+<code class="descname">GET </code><code class="descname">/</code><a class="headerlink" href="#get--" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all the categories and last added items</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return:</th><td class="field-body">Render the catalog template</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p>def list_categories()</p>
+<ul class="last simple">
+<li>list all the categories</li>
+<li>list the 5 latest items with the corresponding category in ()</li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--catalog-(string-category)">
+<code class="descname">GET </code><code class="descname">/catalog/</code><span class="sig-paren">(</span><em class="property">string: </em><em>category</em><span class="sig-paren">)</span><a class="headerlink" href="#get--catalog-(string-category)" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all the items in the given category</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>category</strong> (<em>str</em>) – The selected category</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"><p class="first last">Render the items template</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--catalog-(string-category)-(string-item)">
+<code class="descname">GET </code><code class="descname">/catalog/</code><span class="sig-paren">(</span><em class="property">string: </em><em>category</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#get--catalog-(string-category)-(string-item)" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the information about the given item</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>category</strong> (<em>str</em>) – The selected category</li>
+<li><strong>item</strong> (<em>str</em>) – The selected item</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"><p class="first last">Render the description template</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--catalog-(string-category)-(string-item)-delete">
+<code class="descname">GET </code><code class="descname">/catalog/</code><span class="sig-paren">(</span><em class="property">string: </em><em>category</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>item</em><span class="sig-paren">)</span><code class="descname">/delete</code><a class="headerlink" href="#get--catalog-(string-category)-(string-item)-delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the given item</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>category</strong> (<em>str</em>) – The selected category</li>
+<li><strong>item</strong> (<em>str</em>) – The selected item</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"><p class="first last">Render the item_delete template</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--catalog-(string-category)-(string-item)-edit">
+<code class="descname">GET </code><code class="descname">/catalog/</code><span class="sig-paren">(</span><em class="property">string: </em><em>category</em><span class="sig-paren">)</span><code class="descname">/</code><span class="sig-paren">(</span><em class="property">string: </em><em>item</em><span class="sig-paren">)</span><code class="descname">/edit</code><a class="headerlink" href="#get--catalog-(string-category)-(string-item)-edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edit the given item</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>category</strong> (<em>str</em>) – The selected category</li>
+<li><strong>item</strong> (<em>str</em>) – The selected item</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"><p class="first last">Render the item_edit template</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--catalog-(string-category)-delete">
+<code class="descname">GET </code><code class="descname">/catalog/</code><span class="sig-paren">(</span><em class="property">string: </em><em>category</em><span class="sig-paren">)</span><code class="descname">/delete</code><a class="headerlink" href="#get--catalog-(string-category)-delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the given category</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>category</strong> (<em>str</em>) – The selected category</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"><p class="first last">Render the category_delete template</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--catalog-(string-category)-edit">
+<code class="descname">GET </code><code class="descname">/catalog/</code><span class="sig-paren">(</span><em class="property">string: </em><em>category</em><span class="sig-paren">)</span><code class="descname">/edit</code><a class="headerlink" href="#get--catalog-(string-category)-edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edit the given category</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>category</strong> (<em>str</em>) – The selected category</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"><p class="first last">Render the category_edit template</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--catalog-(string-category)-new">
+<code class="descname">GET </code><code class="descname">/catalog/</code><span class="sig-paren">(</span><em class="property">string: </em><em>category</em><span class="sig-paren">)</span><code class="descname">/new</code><a class="headerlink" href="#get--catalog-(string-category)-new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new item</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>category</strong> (<em>str</em>) – The selected category</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"><p class="first last">Render the item_new template</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--catalog-new">
+<code class="descname">GET </code><code class="descname">/catalog/new</code><a class="headerlink" href="#get--catalog-new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new category</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return:</th><td class="field-body">Render the category_new template</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--gconnect">
+<code class="descname">GET </code><code class="descname">/gconnect</code><a class="headerlink" href="#get--gconnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the state so it can verify the server response.
+When successful, fetch the OAuth2 tokens and store the credentials</p>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p>def oauth2callback()</p>
+<ul class="last simple">
+<li>Check if user already exist in database</li>
+<li>Add user in database if not exist</li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--revoke">
+<code class="descname">GET </code><code class="descname">/revoke</code><a class="headerlink" href="#get--revoke" title="Permalink to this definition">¶</a></dt>
+<dd><p>Revoke access to user by removing credentials token</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="specification.html" title="previous chapter">Project Specification – Item Catalog</a></li>
+      <li>Next: <a href="helpers.html" title="next chapter">Global Helpers</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Christopher Berdahl.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/topics/routing.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
