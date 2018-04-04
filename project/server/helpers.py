@@ -15,7 +15,8 @@ def login_required(f):
     Check if the user is logged in, if True continue to the route.
     Else give a warning to log in first and redirect to the main route.
 
-    :params
+    :param f: The wrapped function
+    :type: function
     '''
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -29,13 +30,12 @@ def login_required(f):
 
 def credentials_to_dict(credentials):
     '''
-    .. py:function:: credentials_to_dict(credentials)
+    Take the credentials and return it as a dict.
 
-        Take the credentials and return it as a dict.
-
-        :params credentials: a constructed credentials
-        :return: a dict with the following keys: token, expiry, refresh, token_uri \
-            client_id, client_secret, scopes
+    :param credentials: a constructed credentials
+    :type: constructed credentials
+    :return: a dict with the following keys: token, expiry, refresh, token_uri, \
+        client_id, client_secret, scopes
     '''
     return {'token': credentials.token,
     		'expiry': credentials.expiry,
