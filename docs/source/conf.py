@@ -55,7 +55,7 @@ autosummary_generate = True
 autodoc_member_order = 'groupwise'
 
 plantuml = 'java -jar ../../plantuml.jar'.split()
-graphviz = 'dot -Tpdf -Gsize=10'.split()
+graphviz = 'dot -Tpng -Gsize=10'.split()
 
 sadisplay_default_render = 'graphviz'
 
