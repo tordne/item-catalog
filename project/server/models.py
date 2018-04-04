@@ -8,6 +8,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 
+import os
+
 Base = declarative_base()
 
 
@@ -115,6 +117,6 @@ class Credential(Base):
     user = relationship(User)
 
 
-engine = create_engine('postgresql://vagrant:vagrant@localhost/catalog')
+engine = create_engine(os.environ['DATABASE_URL'])
 
 Base.metadata.create_all(engine)

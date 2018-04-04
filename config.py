@@ -19,9 +19,9 @@ class BaseConfig(object):
     DEBUG = False
     TESTING = False
     # Google OAuh2.0
-    CLIENT_ID = '10XXXXXX.apps.googleusercontent.com '  # NOQA
-    CLIENT_SECRET = 'tVXXXXXX7 '
-    CLIENT_SECRET_FILE = '/vagrant/client_secret.json'
+    CLIENT_ID = '10XXXXXX.apps.googleusercontent.com'  # NOQA
+    CLIENT_SECRET = 'tVXXXXXX7'
+    CLIENT_SECRET_FILE = os.environ['CLIENT_SECRET_FILE']
     SCOPES = ['https://www.googleapis.com/auth/userinfo.profile',
           'https://www.googleapis.com/auth/userinfo.email']
     OAUTHLIB_INSECURE_TRANSPORT = '1'
@@ -30,7 +30,7 @@ class BaseConfig(object):
 class DevelopmentConfig(BaseConfig):
     ''' Development configuration '''
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI ='postgresql://vagrant:vagrant@localhost:5432/catalog'
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL'] # NOQA
     OAUTHLIB_INSECURE_TRANSPORT = '1'
 
 
