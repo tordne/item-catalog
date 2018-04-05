@@ -36,7 +36,6 @@ The Catalog
 .. toctree::
    :maxdepth: 2
 
-   topics/blueprints
    topics/specification
    topics/routing
    topics/helpers
