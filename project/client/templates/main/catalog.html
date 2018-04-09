@@ -3,17 +3,55 @@
 {% block content %}
 <section class="main-inner">
 	<section class="main-buttons">
-		<a href="" class="button">Add Category</a>
+		{% if 'logged_in' in session %}
+			<a href="{{ url_for('main.category_new') }}" class="button">Add Category</a>
+		{% endif %}
 	</section>
 	<section class="categories">
 		<h1>Categories:</h1>
-		<p>Baseball</p>
-		<p>Football</p>
+		{% if categories != [] %}
+			<ul>
+				{% if 'logged_in' not in session %}
+					{% for cat in categories %}
+						<li>
+							<a class="categories-text" href="{{ url_for('main.list_items', category=cat.name) }}">{{ cat.name }}</a>
+						</li>
+					{% endfor %}
+				{% else %}
+					{% for cat in categories %}
+						<li>
+							<a class="categories-text" href="{{ url_for('main.list_items', category=cat.name) }}">{{ cat.name }}</a>
+							<a class="categories-edit-delete" href="{{ url_for('main.category_delete', category=cat.name) }}"><i class="far fa-trash-alt"></i></a>
+							<a class="categories-edit-delete" href="{{ url_for('main.category_edit', category=cat.name) }}"><i class="far fa-edit categories-5px-margin"></i></a>
+						</li>
+					{% endfor %}
+				{% endif %}
+			</ul>
+		{% endif %}
 	</section>
 	<section class="items">
 		<h1>Recently Added Items:</h1>
-		<p>shoes</p>
-		<p>shorts</p>
+		{% if items != [] %}
+			<ul>
+				{% if 'logged_in' not in session %}
+					{% for item in items %}
+						<li>
+							<a class="categories-text" href="{{ url_for('main.info_item', category=item.category.name, item=item.name) }}">{{ item.name }}</a>
+							<a href="{{ url_for('main.list_items', category=item.category.name) }}">({{ item.category.name }})</a>
+						</li>
+					{% endfor %}
+				{% else %}
+					{% for item in items %}
+						<li>
+							<a class="categories-text" href="{{ url_for('main.info_item', category=item.category.name, item=item.name) }}">{{ item.name }}</a>
+							<a href="{{ url_for('main.list_items', category=item.category.name) }}">({{ item.category.name }})</a>
+							<a class="categories-edit-delete" href="{{ url_for('main.item_delete', category=item.category.name, item=item.name) }}"><i class="far fa-trash-alt"></i></a>
+							<a class="categories-edit-delete" href="{{ url_for('main.item_edit', category=item.category.name, item=item.name) }}"><i class="far fa-edit categories-5px-margin"></i></a>
+						</li>
+					{% endfor %} -->
+				{% endif %}
+			</ul>
+		{% endif %}
 	</section>
 </section>
 {% endblock %}

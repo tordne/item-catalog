@@ -220,6 +220,7 @@ p {
 
 .alert-close {
 	text-decoration: none;
+	color: #423e28;
 	text-shadow: 3px 3px 5px black;
 	float: right;
 	padding-right: 8px;
@@ -283,12 +284,28 @@ main {
 	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.26);
 	width: 290px;
 	min-height: 300px;
+	display: block;
 }
 
-.categories h1, p {
+.categories h1, p, a {
 	color: #adeee3;
 }
 
+.categories-text {
+	text-decoration: none;
+	text-shadow: 3px 3px 5px black;
+	float: left;
+	padding-right: 8px;
+	cursor: pointer;
+}
+
+.categories-edit-delete {
+	float: right;
+}
+
+.categories-5px-margin {
+	margin-right: 5px;
+}
 
 /*
  *

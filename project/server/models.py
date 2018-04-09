@@ -9,6 +9,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 
 import os
+from datetime import datetime
 
 Base = declarative_base()
 
@@ -67,6 +68,8 @@ class Item(Base):
         String(250), nullable=False
     .. py:attribute:: description
         String(250)
+    .. py:attribute:: date_time
+        DateTime, nullable=False, default=datetime.utcnow()
 
     .. py:attribute:: category_id
         Integer, ForeignKey('category.id')
@@ -83,6 +86,7 @@ class Item(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     description = Column(String(250))
+    date_time = Column(DateTime, nullable=False, default=datetime.utcnow())
     category_id = Column(Integer, ForeignKey('category.id'))
     category = relationship(Category)
     user_id = Column(Integer, ForeignKey('user.id'))
@@ -96,11 +100,11 @@ class Credential(Base):
     .. py:attribute:: id
         Integer, primary_key=True
     .. py:attribute:: cred_token
-        String(129), nullable=False
+        String(150), nullable=False
     .. py:attribute:: cred_expiry
         DateTime, nullable=False
     .. py:attribute:: cred_refresh
-        String(45), nullable=False
+        String(150), nullable=False
 
     .. py:attribute:: user_id
         Integer, ForeignKey('user.id')
@@ -110,9 +114,9 @@ class Credential(Base):
     __tablename__ = 'credential'
 
     id = Column(Integer, primary_key=True)
-    cred_token = Column(String(129), nullable=False)
+    cred_token = Column(String(150), nullable=False)
     cred_expiry = Column(DateTime, nullable=False)
-    cred_refresh = Column(String(45), nullable=True)
+    cred_refresh = Column(String(150), nullable=True)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
 
