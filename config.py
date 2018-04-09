@@ -19,8 +19,8 @@ class BaseConfig(object):
     DEBUG = False
     TESTING = False
     # Google OAuh2.0
-    CLIENT_ID = '10XXXXXX.apps.googleusercontent.com'  # NOQA
-    CLIENT_SECRET = 'tVXXXXXX7'
+    CLIENT_ID = '1018639020947-l3h0bppvstv799dijbdiuot9a86bce8e.apps.googleusercontent.com'  # NOQA
+    CLIENT_SECRET = 'tVHNcNnAf5drQJBBlcrTRhJ7'
     CLIENT_SECRET_FILE = os.environ['CLIENT_SECRET_FILE']
     SCOPES = ['https://www.googleapis.com/auth/userinfo.profile',
           'https://www.googleapis.com/auth/userinfo.email']
