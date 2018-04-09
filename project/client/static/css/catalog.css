@@ -329,6 +329,17 @@ main {
 	color: #adeee3;
 }
 
+.items-description {
+	display: inline-block;
+}
+
+.items-text {
+	text-decoration: none;
+	text-shadow: 3px 3px 5px black;
+	padding-right: 8px;
+	cursor: pointer;
+}
+
 
 /*
  *

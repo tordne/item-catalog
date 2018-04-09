@@ -72,10 +72,13 @@ def info_item(category, item):
     :param str item: The selected item
     :return: Render the description template
     '''
+
+    # Retrieve all the information about the item concerned
+    items = pg_session.query(Item).filter_by(name=item).one()
+
     return render_template(
         'main/description.html',
-        category=category,
-        item=item)
+        items=items)
 
 
 ''' Private Routes '''
