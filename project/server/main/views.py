@@ -26,11 +26,6 @@ def list_categories():
     .. :quickref: Home; List all the categories
 
     :return: Render the catalog template
-
-    .. todo:: def list_categories()
-
-        * list all the categories
-        * list the 5 latest items with the corresponding category in ()
     '''
     # Retrieve all the categories from the database
     categories = pg_session.query(Category).order_by(Category.name.asc())
@@ -53,7 +48,16 @@ def list_items(category):
     :param str category: The selected category
     :return: Render the items template
     '''
-    return render_template('main/items.html', category=category)
+    # Retrieve all the categories from the database
+    categories = pg_session.query(Category).order_by(Category.name.asc())
+
+    # Retrieve the last 5 added items from the database
+    items = pg_session.query(Item).filter(
+        Item.category.has(name=category)).order_by(Item.name.asc())
+
+    return render_template('main/items.html',
+                           categories=categories,
+                           items=items)
 
 
 # Route showing information about the item

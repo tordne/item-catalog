@@ -48,7 +48,7 @@
 							<a class="categories-edit-delete" href="{{ url_for('main.item_delete', category=item.category.name, item=item.name) }}"><i class="far fa-trash-alt"></i></a>
 							<a class="categories-edit-delete" href="{{ url_for('main.item_edit', category=item.category.name, item=item.name) }}"><i class="far fa-edit categories-5px-margin"></i></a>
 						</li>
-					{% endfor %} -->
+					{% endfor %}
 				{% endif %}
 			</ul>
 		{% endif %}
