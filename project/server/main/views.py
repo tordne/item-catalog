@@ -2,6 +2,11 @@
 
 from flask import Blueprint, render_template
 
+from project.server import pg_session
+from project.server.models import User, Category, Item
+from project.server.helpers import login_required
+
+import pdb
 
 ''' Configuration '''
 
@@ -27,7 +32,15 @@ def list_categories():
         * list all the categories
         * list the 5 latest items with the corresponding category in ()
     '''
-    return render_template('main/catalog.html')
+    # Retrieve all the categories from the database
+    categories = pg_session.query(Category).order_by(Category.name.asc())
+
+    # Retrieve the last 5 added items from the database
+    items = pg_session.query(Item).order_by(Item.date_time.desc()).limit(5)
+
+    return render_template('main/catalog.html',
+                           categories=categories,
+                           items=items)
 
 
 @main_blueprint.route('/catalog/<string:category>')
