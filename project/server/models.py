@@ -47,7 +47,10 @@ class Category(Base):
     .. py:attribute:: user_id
         Integer, ForeignKey('user.id')
     .. py:attribute:: user
-        relationship(User
+        relationship(User)
+
+    .. py:attribute:: items
+        relationship("Item", cascade="save-update, merge, delete")
     '''
     __tablename__ = 'category'
 
@@ -55,6 +58,8 @@ class Category(Base):
     name = Column(String(250), nullable=False)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
+
+    items = relationship("Item", cascade="save-update, merge, delete")
 
 
 class Item(Base):
