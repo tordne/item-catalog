@@ -4,7 +4,7 @@
 <section class="main-inner">
 	<section class="main-buttons">
 		{% if 'logged_in' in session %}
-			<a href="{{ url_for('main.item_new', category=items[0].category.name) }}" class="button">Add Item</a>
+			<a href="{{ url_for('main.item_new', category=category) }}" class="button">Add Item</a>
 		{% endif %}
 	</section>
 	<section class="categories">
@@ -30,7 +30,7 @@
 		{% endif %}
 	</section>
 	<section class="items">
-		<h1>Items under: {{ items[0].category.name }}</h1>
+		<h1>Items under: {{ category }}</h1>
 		{% if items != [] %}
 			<ul>
 				{% if 'logged_in' not in session %}

@@ -57,6 +57,7 @@ def list_items(category):
         Item.category.has(name=category)).order_by(Item.name.asc())
 
     return render_template('main/items.html',
+                           category=category,
                            categories=categories,
                            items=items)
 
