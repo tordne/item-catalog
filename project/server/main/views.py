@@ -116,7 +116,9 @@ def category_new():
         return render_template('main/category_new.html')
 
 
-@main_blueprint.route('/catalog/<string:category>/edit')
+@main_blueprint.route('/catalog/<string:category>/edit',
+                      methods=['GET', 'POST'])
+@login_required
 def category_edit(category):
     '''
     Edit the given category
@@ -126,7 +128,20 @@ def category_edit(category):
     :param str category: The selected category
     :return: Render the category_edit template
     '''
-    return render_template('main/category_edit.html', category=category)
+    user = pg_session.query(User).filter_by(google_id=session['id']).one()
+    cat_edit = pg_session.query(Category).filter_by(name=category).one()
+
+    if request.method == 'POST':
+        if request.form['category']:
+            cat_edit.name = request.form['category']
+            cat_edit.user_id = user.id
+            pg_session.add(cat_edit)
+            pg_session.commit()
+            flash("Category: {name} is edited.".format(
+                name=cat_edit.name), 'success')
+        return redirect(url_for('main.list_categories'))
+    else:
+        return render_template('main/category_edit.html', category=category)
 
 
 @main_blueprint.route('/catalog/<string:category>/delete')
