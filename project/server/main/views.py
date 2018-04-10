@@ -144,7 +144,8 @@ def category_edit(category):
         return render_template('main/category_edit.html', category=category)
 
 
-@main_blueprint.route('/catalog/<string:category>/delete', methods=['GET', 'POST'])
+@main_blueprint.route('/catalog/<string:category>/delete',
+                      methods=['GET', 'POST'])
 @login_required
 def category_delete(category):
     '''
@@ -167,19 +168,56 @@ def category_delete(category):
         return render_template('main/category_delete.html', category=category)
 
 
-@main_blueprint.route('/catalog/<string:category>/new')
+@main_blueprint.route('/catalog/<string:category>/new',
+                      methods=['GET', 'POST'])
+@login_required
 def item_new(category):
     '''
     Create a new item
+
+    method['GET']:
+
+    * Initially retrieve a list of categories to display in the select options.
+    * Identify the user through their google_id.
+
+    method['POST']:
+
+    * Retrieve the category id number by the request.form['cat_select']
+    * Retrieve the user id number through the session['id']
+    * Create newItem with info form request.form and retrieved cat.id and user.id
+    * Redirect to list_items route
 
     .. :quickref: Item; Create a new item
 
     :param str category: The selected category
     :return: Render the item_new template
     '''
-    return render_template(
-        'main/item_new.html',
-        category=category)
+    # Retrieve a list of categories to display in the form
+    categories = pg_session.query(Category).order_by(Category.name.asc())
+    # pdb.set_trace()
+    if request.method == 'POST':
+        cat = pg_session.query(Category).filter_by(
+            name=request.form['cat_select']).one()
+
+        # Retrieve the user.id with the session['google_id']
+        user = pg_session.query(User).filter_by(google_id=session['id']).one()
+
+        newItem = Item(
+            name=request.form['name'],
+            description=request.form['description'],
+            category_id=cat.id,
+            user_id=user.id
+        )
+        pg_session.add(newItem)
+        pg_session.commit()
+        flash("New Item: {name} created.".format(
+            name=newItem.name), 'success')
+        return redirect(url_for('main.list_items', category=category))
+    else:
+        return render_template(
+            'main/item_new.html',
+            category=category,
+            categories=categories)
 
 
 @main_blueprint.route('/catalog/<string:category>/<string:item>/edit')
