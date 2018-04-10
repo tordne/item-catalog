@@ -1,6 +1,7 @@
 # project/server/main/views.py
 
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, session, url_for, \
+    redirect, request, flash
 
 from project.server import pg_session
 from project.server.models import User, Category, Item
@@ -56,6 +57,7 @@ def list_items(category):
         Item.category.has(name=category)).order_by(Item.name.asc())
 
     return render_template('main/items.html',
+                           category=category,
                            categories=categories,
                            items=items)
 
@@ -84,16 +86,34 @@ def info_item(category, item):
 ''' Private Routes '''
 
 
-@main_blueprint.route('/catalog/new')
+@main_blueprint.route('/catalog/new', methods=['GET', 'POST'])
+@login_required
 def category_new():
     '''
-    Create a new category
+    Create a new category.
+
+    Query the database and get user.id with the google_id provided by session
+
+    Create a new category with a name provided by request.form and the user.id
 
     .. :quickref: Category; Create a new category
 
     :return: Render the category_new template
     '''
-    return render_template('main/category_new.html')
+    # Retrieve the user.id at the hand of the google_id from the database
+    user = pg_session.query(User).filter_by(google_id=session['id']).one()
+
+    if request.method == 'POST':
+        newCategory = Category(
+            name=request.form['category'],
+            user_id=user.id)
+        pg_session.add(newCategory)
+        pg_session.commit()
+        flash("New Category: {name} created.".format(
+            name=newCategory.name), 'success')
+        return redirect(url_for('main.list_categories'))
+    else:
+        return render_template('main/category_new.html')
 
 
 @main_blueprint.route('/catalog/<string:category>/edit')
