@@ -144,7 +144,8 @@ def category_edit(category):
         return render_template('main/category_edit.html', category=category)
 
 
-@main_blueprint.route('/catalog/<string:category>/delete')
+@main_blueprint.route('/catalog/<string:category>/delete', methods=['GET', 'POST'])
+@login_required
 def category_delete(category):
     '''
     Delete the given category
@@ -154,7 +155,16 @@ def category_delete(category):
     :param str category: The selected category
     :return: Render the category_delete template
     '''
-    return render_template('main/category_delete.html', category=category)
+    cat_del = pg_session.query(Category).filter_by(name=category).one()
+
+    if request.method == 'POST':
+        pg_session.delete(cat_del)
+        pg_session.commit()
+        flash("Category: {name} is deleted.".format(
+            name=cat_del.name), 'success')
+        return redirect(url_for('main.list_categories'))
+    else:
+        return render_template('main/category_delete.html', category=category)
 
 
 @main_blueprint.route('/catalog/<string:category>/new')
