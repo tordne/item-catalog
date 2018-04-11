@@ -16,7 +16,7 @@ Base = declarative_base()
 
 class User(Base):
     '''
-    The User class contains 3 attributes id, name, email
+    The User class has 4 attributes which are retrieved from google OAuth
 
     .. py:attribute:: id
         Integer, primary_key=True
@@ -37,8 +37,12 @@ class User(Base):
 
 class Category(Base):
     '''
-    The Category class has has 2 basic attributes id, name
-    The 3rd attribute is the relationship with 'User' table
+    The Category class has has 2 basic attributes id, name.
+
+    The 3rd attribute is the relationship with 'User' table.
+
+    There is another attribute 'items' which makes sure that when the category
+    is deleted that all it's children are removed too.
 
     .. py:attribute:: id
         Integer, primary_key=True
@@ -72,7 +76,7 @@ class Category(Base):
 
 class Item(Base):
     '''
-    The Item class has 3 basic attr. id, name, description
+    The Item class has 4basic attr. id, name, description and date_time.
     The 3rd and 4th attr. are relationships to the User and Category tables
 
     .. py:attribute:: id
@@ -124,6 +128,8 @@ class Item(Base):
 class Credential(Base):
     '''
     This Authentication class contains the authentication token and credentials.
+
+    It also cotains a relationship with the User.
 
     .. py:attribute:: id
         Integer, primary_key=True
