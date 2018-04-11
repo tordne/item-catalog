@@ -61,6 +61,14 @@ class Category(Base):
 
     items = relationship("Item", cascade="save-update, merge, delete")
 
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'user_id': self.user_id,
+        }
+
 
 class Item(Base):
     '''
@@ -95,10 +103,22 @@ class Item(Base):
                        nullable=False,
                        server_default=func.now(),
                        onupdate=func.now())
+
     category_id = Column(Integer, ForeignKey('category.id'))
     category = relationship(Category)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'date_time': self.date_time,
+            'category_id': self.category_id,
+            'user_id': self.user_id,
+        }
 
 
 class Credential(Base):
