@@ -194,7 +194,7 @@ def item_new(category):
     '''
     # Retrieve a list of categories to display in the form
     categories = pg_session.query(Category).order_by(Category.name.asc())
-    # pdb.set_trace()
+
     if request.method == 'POST':
         cat = pg_session.query(Category).filter_by(
             name=request.form['cat_select']).one()
@@ -214,13 +214,14 @@ def item_new(category):
             name=newItem.name), 'success')
         return redirect(url_for('main.list_items', category=category))
     else:
-        return render_template(
-            'main/item_new.html',
-            category=category,
-            categories=categories)
+        return render_template('main/item_new.html',
+                               category=category,
+                               categories=categories)
 
 
-@main_blueprint.route('/catalog/<string:category>/<string:item>/edit')
+@main_blueprint.route('/catalog/<string:category>/<string:item>/edit',
+                      methods=['GET', 'POST'])
+@login_required
 def item_edit(category, item):
     '''
     Edit the given item
@@ -231,10 +232,36 @@ def item_edit(category, item):
     :param str item: The selected item
     :return: Render the item_edit template
     '''
-    return render_template(
-        'main/item_edit.html',
-        category=category,
-        item=item)
+    # Retrieve a list of categories to display in the form
+    categories = pg_session.query(Category).order_by(Category.name.asc())
+    editItem = pg_session.query(Item).filter_by(name=item).one()
+
+    if request.method == 'POST':
+        # Retrieve the category_id with the request.form['cat_select']
+        cat = pg_session.query(Category).filter_by(
+            name=request.form['cat_select']).one()
+
+        # Retrieve the user.id with the session['google_id']
+        user = pg_session.query(User).filter_by(google_id=session['id']).one()
+
+        editItem.name = request.form['name']
+        editItem.description = request.form['description']
+        editItem.category_id = cat.id
+        editItem.user_id = user.id
+
+        pg_session.add(editItem)
+        pg_session.commit()
+
+        flash("Item: {name} is edited.".format(
+            name=editItem.name), 'success')
+        return redirect(url_for('main.info_item',
+                                category=cat.name,
+                                item=editItem.name))
+    else:
+        return render_template('main/item_edit.html',
+                               category=category,
+                               categories=categories,
+                               editItem=editItem)
 
 
 # Route to delete the item
