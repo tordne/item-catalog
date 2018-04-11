@@ -265,7 +265,9 @@ def item_edit(category, item):
 
 
 # Route to delete the item
-@main_blueprint.route('/catalog/<string:category>/<string:item>/delete')
+@main_blueprint.route('/catalog/<string:category>/<string:item>/delete',
+                      methods=['GET', 'POST'])
+@login_required
 def item_delete(category, item):
     '''
     Delete the given item
@@ -276,7 +278,16 @@ def item_delete(category, item):
     :param str item: The selected item
     :return: Render the item_delete template
     '''
-    return render_template(
-        'main/item_delete.html',
-        category=category,
-        item=item)
+    if request.method == 'POST':
+        item_del = pg_session.query(Item).filter_by(name=item).one()
+
+        pg_session.delete(item_del)
+        pg_session.commit()
+
+        flash("Item: {name} is deleted.".format(name=item_del.name), 'success')
+        return redirect(url_for('main.list_items', category=category))
+    else:
+        return render_template(
+            'main/item_delete.html',
+            category=category,
+            item=item)
