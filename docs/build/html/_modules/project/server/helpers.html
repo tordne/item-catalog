@@ -42,13 +42,14 @@
 <span></span><span class="c1"># project/server/helpers.py</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">.. module:: helpers</span>
-<span class="sd">	:synopsis: These are global helpers used throughout the blueprints.</span>
+<span class="sd">    :synopsis: These are global helpers used throughout the blueprints.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="kn">from</span> <span class="nn">flask</span> <span class="k">import</span> <span class="n">session</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">url_for</span><span class="p">,</span> <span class="n">flash</span>
 
 <span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">wraps</span>
 
 <span class="kn">import</span> <span class="nn">pdb</span>
+
 
 <div class="viewcode-block" id="login_required"><a class="viewcode-back" href="../../../topics/helpers.html#project.server.helpers.login_required">[docs]</a><span class="k">def</span> <span class="nf">login_required</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
@@ -79,7 +80,7 @@
 <span class="sd">        client_id, client_secret, scopes</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;token&#39;</span><span class="p">:</span> <span class="n">credentials</span><span class="o">.</span><span class="n">token</span><span class="p">,</span>
-    		<span class="s1">&#39;expiry&#39;</span><span class="p">:</span> <span class="n">credentials</span><span class="o">.</span><span class="n">expiry</span><span class="p">,</span>
+            <span class="s1">&#39;expiry&#39;</span><span class="p">:</span> <span class="n">credentials</span><span class="o">.</span><span class="n">expiry</span><span class="p">,</span>
             <span class="s1">&#39;refresh&#39;</span><span class="p">:</span> <span class="n">credentials</span><span class="o">.</span><span class="n">refresh_token</span><span class="p">,</span>
             <span class="s1">&#39;token_uri&#39;</span><span class="p">:</span> <span class="n">credentials</span><span class="o">.</span><span class="n">token_uri</span><span class="p">,</span>
             <span class="s1">&#39;client_id&#39;</span><span class="p">:</span> <span class="n">credentials</span><span class="o">.</span><span class="n">client_id</span><span class="p">,</span>
@@ -106,7 +107,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../installation/system.html">System Installation</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../topics/specification.html">Project Specification – Item Catalog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../topics/specification.html">Udacity Project Specification – Item Catalog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../topics/documentation.html">Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../topics/routing.html">Routing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../topics/helpers.html">Global Helpers</a></li>
