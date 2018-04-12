@@ -47,6 +47,7 @@
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">DateTime</span><span class="p">,</span> <span class="n">Boolean</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="k">import</span> <span class="n">declarative_base</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="k">import</span> <span class="n">relationship</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.sql</span> <span class="k">import</span> <span class="n">func</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">create_engine</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
@@ -56,7 +57,7 @@
 
 <div class="viewcode-block" id="User"><a class="viewcode-back" href="../../../topics/database.html#project.server.models.User">[docs]</a><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    The User class contains 3 attributes id, name, email</span>
+<span class="sd">    The User class has 4 attributes which are retrieved from google OAuth</span>
 
 <span class="sd">    .. py:attribute:: id</span>
 <span class="sd">        Integer, primary_key=True</span>
@@ -77,8 +78,12 @@
 
 <div class="viewcode-block" id="Category"><a class="viewcode-back" href="../../../topics/database.html#project.server.models.Category">[docs]</a><span class="k">class</span> <span class="nc">Category</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    The Category class has has 2 basic attributes id, name</span>
-<span class="sd">    The 3rd attribute is the relationship with &#39;User&#39; table</span>
+<span class="sd">    The Category class has has 2 basic attributes id, name.</span>
+
+<span class="sd">    The 3rd attribute is the relationship with &#39;User&#39; table.</span>
+
+<span class="sd">    There is another attribute &#39;items&#39; which makes sure that when the category</span>
+<span class="sd">    is deleted that all it&#39;s children are removed too.</span>
 
 <span class="sd">    .. py:attribute:: id</span>
 <span class="sd">        Integer, primary_key=True</span>
@@ -87,19 +92,32 @@
 <span class="sd">    .. py:attribute:: user_id</span>
 <span class="sd">        Integer, ForeignKey(&#39;user.id&#39;)</span>
 <span class="sd">    .. py:attribute:: user</span>
-<span class="sd">        relationship(User</span>
+<span class="sd">        relationship(User)</span>
+
+<span class="sd">    .. py:attribute:: items</span>
+<span class="sd">        relationship(&quot;Item&quot;, cascade=&quot;save-update, merge, delete&quot;)</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;category&#39;</span>
 
     <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">250</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">user_id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;user.id&#39;</span><span class="p">))</span>
-    <span class="n">user</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="n">User</span><span class="p">)</span></div>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="n">User</span><span class="p">)</span>
+
+    <span class="n">items</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="s2">&quot;Item&quot;</span><span class="p">,</span> <span class="n">cascade</span><span class="o">=</span><span class="s2">&quot;save-update, merge, delete&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;user_id&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_id</span><span class="p">,</span>
+        <span class="p">}</span></div>
 
 
 <div class="viewcode-block" id="Item"><a class="viewcode-back" href="../../../topics/database.html#project.server.models.Item">[docs]</a><span class="k">class</span> <span class="nc">Item</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    The Item class has 3 basic attr. id, name, description</span>
+<span class="sd">    The Item class has 4basic attr. id, name, description and date_time.</span>
 <span class="sd">    The 3rd and 4th attr. are relationships to the User and Category tables</span>
 
 <span class="sd">    .. py:attribute:: id</span>
@@ -108,6 +126,8 @@
 <span class="sd">        String(250), nullable=False</span>
 <span class="sd">    .. py:attribute:: description</span>
 <span class="sd">        String(250)</span>
+<span class="sd">    .. py:attribute:: date_time</span>
+<span class="sd">        DateTime, nullable=False, default=datetime.utcnow()</span>
 
 <span class="sd">    .. py:attribute:: category_id</span>
 <span class="sd">        Integer, ForeignKey(&#39;category.id&#39;)</span>
@@ -124,24 +144,42 @@
     <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">250</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">description</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">250</span><span class="p">))</span>
+    <span class="n">date_time</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">DateTime</span><span class="p">,</span>
+                       <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                       <span class="n">server_default</span><span class="o">=</span><span class="n">func</span><span class="o">.</span><span class="n">now</span><span class="p">(),</span>
+                       <span class="n">onupdate</span><span class="o">=</span><span class="n">func</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
+
     <span class="n">category_id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;category.id&#39;</span><span class="p">))</span>
     <span class="n">category</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="n">Category</span><span class="p">)</span>
     <span class="n">user_id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;user.id&#39;</span><span class="p">))</span>
-    <span class="n">user</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="n">User</span><span class="p">)</span></div>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="n">User</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+            <span class="s1">&#39;date_time&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">date_time</span><span class="p">,</span>
+            <span class="s1">&#39;category_id&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">category_id</span><span class="p">,</span>
+            <span class="s1">&#39;user_id&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_id</span><span class="p">,</span>
+        <span class="p">}</span></div>
 
 
 <div class="viewcode-block" id="Credential"><a class="viewcode-back" href="../../../topics/database.html#project.server.models.Credential">[docs]</a><span class="k">class</span> <span class="nc">Credential</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    This Authentication class contains the authentication token and credentials.</span>
 
+<span class="sd">    It also cotains a relationship with the User.</span>
+
 <span class="sd">    .. py:attribute:: id</span>
 <span class="sd">        Integer, primary_key=True</span>
 <span class="sd">    .. py:attribute:: cred_token</span>
-<span class="sd">        String(129), nullable=False</span>
+<span class="sd">        String(150), nullable=False</span>
 <span class="sd">    .. py:attribute:: cred_expiry</span>
 <span class="sd">        DateTime, nullable=False</span>
 <span class="sd">    .. py:attribute:: cred_refresh</span>
-<span class="sd">        String(45), nullable=False</span>
+<span class="sd">        String(150), nullable=False</span>
 
 <span class="sd">    .. py:attribute:: user_id</span>
 <span class="sd">        Integer, ForeignKey(&#39;user.id&#39;)</span>
@@ -151,9 +189,9 @@
     <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;credential&#39;</span>
 
     <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">cred_token</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">129</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">cred_token</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">150</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">cred_expiry</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">DateTime</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">cred_refresh</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">45</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">cred_refresh</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">150</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">user_id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;user.id&#39;</span><span class="p">))</span>
     <span class="n">user</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="n">User</span><span class="p">)</span></div>
 
@@ -183,6 +221,7 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../topics/specification.html">Project Specification – Item Catalog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../topics/documentation.html">Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../topics/routing.html">Routing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../topics/helpers.html">Global Helpers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../topics/database.html">Databases</a></li>

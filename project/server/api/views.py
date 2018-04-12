@@ -19,7 +19,7 @@ def listCategoriesJSON():
     '''
     Return a JSON with all the categories
 
-    .. :quickref: API: Get a JSON with all categories
+    .. :quickref: API; Get a JSON with all categories
 
     :return: Return a JSON list of categories.
     '''
@@ -34,7 +34,7 @@ def listItemsJSON(category):
     '''
     Return a JSON with all the items in the given category
 
-    .. :quickref: API: Get a JSON with all the items under category provided
+    .. :quickref: API; Get a JSON with all the items under category provided
 
     :param str category: The selected category
     :return: Retrun a JSON list of items.
