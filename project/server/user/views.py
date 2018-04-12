@@ -151,7 +151,7 @@ def oauth2callback():
         pg_session.commit()
         user = pg_session.query(User).filter_by(
             email=session['email']).one()
-        #pdb.set_trace()
+        # pdb.set_trace()
         # Add the new credentials to the Credential Database
         creds = Credential(cred_token=session['credentials']['token'],
                            cred_expiry=session['credentials']['expiry'],

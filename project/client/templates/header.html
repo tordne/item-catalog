@@ -1,10 +1,10 @@
 <header class="header">
-	<div class="header-inner">
-		<a href="{{ url_for('main.list_categories') }}"><h2 class="header-title">Catalog</h2></a>
-		{% if 'logged_in' not in session %}
-			<a href="{{ url_for('user.authorize') }}" id="login-button" class="header-button">Login</a>
-		{% else %}
-			<a href="{{ url_for('user.revoke') }}" id="login-button" class="header-button">Logout</a>
-		{% endif %}
-	</div>
+  <div class="header-inner">
+    <a href="{{ url_for('main.list_categories') }}"><h2 class="header-title">Catalog</h2></a>
+    {% if 'logged_in' not in session %}
+      <a href="{{ url_for('user.authorize') }}" id="login-button" class="header-button">Login</a>
+    {% else %}
+      <a href="{{ url_for('user.revoke') }}" id="login-button" class="header-button">Logout</a>
+    {% endif %}
+  </div>
 </header>

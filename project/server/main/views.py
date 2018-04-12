@@ -261,6 +261,7 @@ def item_new(category):
         )
         pg_session.add(newItem)
         pg_session.commit()
+
         flash("New Item: {name} created.".format(
             name=newItem.name), 'success')
         return redirect(url_for('main.list_items', category=category))

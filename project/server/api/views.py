@@ -43,5 +43,5 @@ def listItemsJSON(category):
     items = pg_session.query(Item).filter(
         Item.category.has(name=category)).order_by(Item.name.asc())
 
-    return jsonify({'Category': category, 'items': [i.serialize for i in items]})
-
+    return jsonify({'Category': category,
+                    'items': [i.serialize for i in items]})
