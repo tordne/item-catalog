@@ -42,14 +42,14 @@
   <div class="section" id="databases">
 <h1>Databases<a class="headerlink" href="#databases" title="Permalink to this headline">¶</a></h1>
 <p class="sadisplay">
-<img src="../_images/sadisplay-5e4af0b5cdb4753ddf556fdc530769ce92d59c40.png" alt="['project.server.models']" />
+<img src="../_images/sadisplay-2748e9ec71f2999435e9e19c0c7186cee2e61a61.png" alt="['project.server.models']" />
 </p>
 <div class="section" id="user">
 <h2>User<a class="headerlink" href="#user" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="project.server.models.User">
 <em class="property">class </em><code class="descclassname">project.server.models.</code><code class="descname">User</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/server/models.html#User"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#project.server.models.User" title="Permalink to this definition">¶</a></dt>
-<dd><p>The User class contains 3 attributes id, name, email</p>
+<dd><p>The User class has 4 attributes which are retrieved from google OAuth</p>
 <dl class="attribute">
 <dt id="project.server.models.User.id">
 <code class="descname">id</code><a class="headerlink" href="#project.server.models.User.id" title="Permalink to this definition">¶</a></dt>
@@ -86,8 +86,10 @@
 <dl class="class">
 <dt id="project.server.models.Category">
 <em class="property">class </em><code class="descclassname">project.server.models.</code><code class="descname">Category</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/server/models.html#Category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#project.server.models.Category" title="Permalink to this definition">¶</a></dt>
-<dd><p>The Category class has has 2 basic attributes id, name
-The 3rd attribute is the relationship with ‘User’ table</p>
+<dd><p>The Category class has has 2 basic attributes id, name.</p>
+<p>The 3rd attribute is the relationship with ‘User’ table.</p>
+<p>There is another attribute ‘items’ which makes sure that when the category
+is deleted that all it’s children are removed too.</p>
 <dl class="attribute">
 <dt id="project.server.models.Category.id">
 <code class="descname">id</code><a class="headerlink" href="#project.server.models.Category.id" title="Permalink to this definition">¶</a></dt>
@@ -112,8 +114,15 @@ The 3rd attribute is the relationship with ‘User’ table</p>
 <dl class="attribute">
 <dt id="project.server.models.Category.user">
 <code class="descname">user</code><a class="headerlink" href="#project.server.models.Category.user" title="Permalink to this definition">¶</a></dt>
+<dt id="project.server.models.Category.relationship">
+<code class="descname">relationship</code><span class="sig-paren">(</span><em>User</em><span class="sig-paren">)</span><a class="headerlink" href="#project.server.models.Category.relationship" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.server.models.Category.items">
+<code class="descname">items</code><a class="headerlink" href="#project.server.models.Category.items" title="Permalink to this definition">¶</a></dt>
 <dt>
-<code class="descname">relationship(User</code></dt>
+<code class="descname">relationship</code><span class="sig-paren">(</span><em>&quot;Item&quot;</em>, <em>cascade=&quot;save-update</em>, <em>merge</em>, <em>delete&quot;</em><span class="sig-paren">)</span></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -124,7 +133,7 @@ The 3rd attribute is the relationship with ‘User’ table</p>
 <dl class="class">
 <dt id="project.server.models.Item">
 <em class="property">class </em><code class="descclassname">project.server.models.</code><code class="descname">Item</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/server/models.html#Item"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#project.server.models.Item" title="Permalink to this definition">¶</a></dt>
-<dd><p>The Item class has 3 basic attr. id, name, description
+<dd><p>The Item class has 4basic attr. id, name, description and date_time.
 The 3rd and 4th attr. are relationships to the User and Category tables</p>
 <dl class="attribute">
 <dt id="project.server.models.Item.id">
@@ -144,7 +153,14 @@ The 3rd and 4th attr. are relationships to the User and Category tables</p>
 <dt id="project.server.models.Item.description">
 <code class="descname">description</code><a class="headerlink" href="#project.server.models.Item.description" title="Permalink to this definition">¶</a></dt>
 <dt id="project.server.models.Item.String">
-<code class="descname">String</code><span class="sig-paren">(</span><em>250</em><span class="sig-paren">)</span><a class="headerlink" href="#project.server.models.Item.String" title="Permalink to this definition">¶</a></dt>
+<code class="descname">String</code><span class="sig-paren">(</span><em>500</em><span class="sig-paren">)</span><a class="headerlink" href="#project.server.models.Item.String" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="project.server.models.Item.date_time">
+<code class="descname">date_time</code><a class="headerlink" href="#project.server.models.Item.date_time" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descname">DateTime, nullable=False, default=datetime.utcnow()</code></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -184,6 +200,7 @@ The 3rd and 4th attr. are relationships to the User and Category tables</p>
 <dt id="project.server.models.Credential">
 <em class="property">class </em><code class="descclassname">project.server.models.</code><code class="descname">Credential</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/server/models.html#Credential"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#project.server.models.Credential" title="Permalink to this definition">¶</a></dt>
 <dd><p>This Authentication class contains the authentication token and credentials.</p>
+<p>It also cotains a relationship with the User.</p>
 <dl class="attribute">
 <dt id="project.server.models.Credential.id">
 <code class="descname">id</code><a class="headerlink" href="#project.server.models.Credential.id" title="Permalink to this definition">¶</a></dt>
@@ -195,7 +212,7 @@ The 3rd and 4th attr. are relationships to the User and Category tables</p>
 <dt id="project.server.models.Credential.cred_token">
 <code class="descname">cred_token</code><a class="headerlink" href="#project.server.models.Credential.cred_token" title="Permalink to this definition">¶</a></dt>
 <dt>
-<code class="descname">String(129), nullable=False</code></dt>
+<code class="descname">String(150), nullable=False</code></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -209,7 +226,7 @@ The 3rd and 4th attr. are relationships to the User and Category tables</p>
 <dt id="project.server.models.Credential.cred_refresh">
 <code class="descname">cred_refresh</code><a class="headerlink" href="#project.server.models.Credential.cred_refresh" title="Permalink to this definition">¶</a></dt>
 <dt>
-<code class="descname">String(45), nullable=False</code></dt>
+<code class="descname">String(150), nullable=False</code></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -251,7 +268,8 @@ The 3rd and 4th attr. are relationships to the User and Category tables</p>
 <li class="toctree-l1"><a class="reference internal" href="../installation/system.html">System Installation</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="specification.html">Project Specification – Item Catalog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="specification.html">Udacity Project Specification – Item Catalog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="routing.html">Routing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="helpers.html">Global Helpers</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Databases</a><ul>
