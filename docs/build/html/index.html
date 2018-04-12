@@ -44,23 +44,43 @@
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <p>The Item Catalog is a project for Udacity Full Stack Web Developer Nano Degree.</p>
-<p>The Catalog is a browseable and viewers will be able to see more detailed information when selecting an item.
-There will be an authentication system with google login using OAuth2.0.
-When users are authenticated, they will be able to use CRUD to modify the content of the catalog.</p>
-<p>The lessons prior to this project were made at around 2014.
-Since then there have been a lot of software updates and many packages are no longer being maintained.</p>
+<p>A working version of the Catalog can be found on <a class="reference external" href="https://cb-udacity-catalog.herokuapp.com/">Heroku</a>.</p>
+<p>The Catalog project consists of the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li>A database with a list of categories</li>
+<li>A database with items belonging to categories</li>
+<li>An authentication system for user to be access CRUD on items and categories</li>
+<li>API routes that list categories and items in JSON</li>
+</ul>
+</div></blockquote>
 <p>With this project the reigns are handed over to the student, and I wanted to make good use of this opportunity.
 The project is small, but I’ve used a directory and file structure for larger projects with the following:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Flask Blueprints: seperate all the different sections</li>
-<li>Flask scripts: Run the site with the flask CL</li>
+<li><a class="reference external" href="http://nvie.com/posts/a-successful-git-branching-model/">Git Branches</a>: A good branch strategy is important when expanding to teams and make releases of the project.</li>
+<li><a class="reference external" href="http://flask.pocoo.org/docs/0.12/blueprints/">Flask Blueprints</a>: seperate all the different sections</li>
+<li><a class="reference external" href="http://flask.pocoo.org/docs/0.12/cli/">Flask CLI</a>: Run the site with the flask CL</li>
 <li>Client / Server: All the files are segregated to Client and Server files</li>
 <li>config.py: organise all the secret keys and other client_id’s</li>
+<li><a class="reference external" href="https://tordne.github.io/item-catalog/installation/system.html">CentOS 7</a>: CentOS is a very stable distribution which I use on my servers, hence I wanted to create my Vagrant Boxes with CentOS 7.</li>
 </ul>
 </div></blockquote>
-<p>I have made the time to look into other packages to improve my workflow, and looking at Amazon’s Github I’ve found Sphinx.
-This improves the writing of README and other docs, and will organise all the information needed to get the project started.</p>
+<p>It was the intention of using a large project file structure but still using a minimum of extra packages which solve all the problems. This would give me a need to program my own helper functions and scripts. Example Given:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="https://github.com/tordne/item-catalog/blob/master/project/client/static/js/close-alerts.js">javascripts</a>: To close the flash_messages.</li>
+<li><a class="reference external" href="https://github.com/tordne/item-catalog/blob/master/project/server/helpers.py">Global helper functions</a>: These are the global helper functions, including &#64;login_required.</li>
+</ul>
+</div></blockquote>
+<p>I have taken the time to look into other packages to improve my workflow, and used the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="http://www.sphinx-doc.org/en/master/">Sphinx</a>: Documentation writing</li>
+<li><a class="reference external" href="https://tordne.github.io/item-catalog/index.html">Github Pages</a>: Online Documentation which connects with the projects sources</li>
+<li><a class="reference external" href="https://pencil.evolus.vn/">Pencil</a>: An open-source GUI prototyping tool</li>
+</ul>
+</div></blockquote>
 </div>
 <div class="section" id="system-installation">
 <h2>System Installation<a class="headerlink" href="#system-installation" title="Permalink to this headline">¶</a></h2>
@@ -93,6 +113,11 @@ This improves the writing of README and other docs, and will organise all the in
 <li class="toctree-l2"><a class="reference internal" href="topics/specification.html#authentication-authorization">Authentication &amp; Authorization</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="topics/documentation.html">Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="topics/documentation.html#sphinx">Sphinx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="topics/documentation.html#extra-packages">Extra Packages</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="topics/routing.html">Routing</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="topics/routing.html#summary">Summary</a></li>
 <li class="toctree-l2"><a class="reference internal" href="topics/routing.html#route-details">Route Details</a></li>
@@ -111,24 +136,6 @@ This improves the writing of README and other docs, and will organise all the in
 </div>
 <div class="section" id="todo">
 <h2>TODO<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition">
-<p class="first admonition-title">Todo</p>
-<p>def list_categories()</p>
-<ul class="last simple">
-<li>list all the categories</li>
-<li>list the 5 latest items with the corresponding category in ()</li>
-</ul>
-</div>
-<p class="todo-source">(The <a class="reference internal" href="topics/routing.html#index-0"><em>original entry</em></a> is located in &lt;autoflask&gt;, line 1.)</p>
-<div class="admonition-todo admonition">
-<p class="first admonition-title">Todo</p>
-<p>def oauth2callback()</p>
-<ul class="last simple">
-<li>Check if user already exist in database</li>
-<li>Add user in database if not exist</li>
-</ul>
-</div>
-<p class="todo-source">(The <a class="reference internal" href="topics/routing.html#index-1"><em>original entry</em></a> is located in &lt;autoflask&gt;, line 1.)</p>
 </div>
 </div>
 
@@ -153,6 +160,7 @@ This improves the writing of README and other docs, and will organise all the in
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="topics/specification.html">Project Specification – Item Catalog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topics/documentation.html">Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topics/routing.html">Routing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topics/helpers.html">Global Helpers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topics/database.html">Databases</a></li>

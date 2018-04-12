@@ -24,9 +24,14 @@ def list_categories():
     '''
     List all the categories and last added items
 
-    .. :quickref: Home; List all the categories
+    * items - Retrieve the 5 last added or updated items
+    * categories - Retrieve all the categories
 
-    :return: Render the catalog template
+    .. http:get:: /catalog
+
+        :return: Render the catalog template
+
+    .. :quickref: Home; List all the categories
     '''
     # Retrieve all the categories from the database
     categories = pg_session.query(Category).order_by(Category.name.asc())
@@ -39,15 +44,22 @@ def list_categories():
                            items=items)
 
 
-@main_blueprint.route('/catalog/<string:category>')
+@main_blueprint.route('/catalog/<string:category>',
+                      methods=['GET'])
 def list_items(category):
     '''
     List all the items in the given category
 
-    .. :quickref: Category; List all the items
+    * items - Retrieve all the ites in the given category
+    * categories - Retrieve all the categories
 
-    :param str category: The selected category
-    :return: Render the items template
+    .. http:get:: /catalog/(string:category)
+
+        :param category: The selected category
+        :type category: str
+        :return: Render the items template
+
+    .. :quickref: Category; List all the items
     '''
     # Retrieve all the categories from the database
     categories = pg_session.query(Category).order_by(Category.name.asc())
@@ -63,18 +75,24 @@ def list_items(category):
 
 
 # Route showing information about the item
-@main_blueprint.route('/catalog/<string:category>/<string:item>')
+@main_blueprint.route('/catalog/<string:category>/<string:item>',
+                      methods=['GET'])
 def info_item(category, item):
     '''
     List the information about the given item
 
+    * items - Retrieve the item at the hand of the name given
+
+    .. http:get:: /catalog/(string:category)/(string:item)
+
+        :param category: The selected category
+        :type category: str
+        :param item: The selected item
+        :type item: str
+        :return: Render the description template
+
     .. :quickref: Item; List the item info
-
-    :param str category: The selected category
-    :param str item: The selected item
-    :return: Render the description template
     '''
-
     # Retrieve all the information about the item concerned
     items = pg_session.query(Item).filter_by(name=item).one()
 
@@ -92,13 +110,18 @@ def category_new():
     '''
     Create a new category.
 
-    Query the database and get user.id with the google_id provided by session
+    * user - Retrieve the user details from the db with session['id']
 
-    Create a new category with a name provided by request.form and the user.id
+    .. http:get:: /catalog/new
+
+        :return: Render the category_new template
+
+    .. http:post:: /catalog/new
+
+        :form name: Category name
+        :status 302: and then redirect to :http:get:`/catalog`
 
     .. :quickref: Category; Create a new category
-
-    :return: Render the category_new template
     '''
     # Retrieve the user.id at the hand of the google_id from the database
     user = pg_session.query(User).filter_by(google_id=session['id']).one()
@@ -123,10 +146,23 @@ def category_edit(category):
     '''
     Edit the given category
 
-    .. :quickref: Category; Edit the given category
+    * user - Retrieve the user details from the db with session['id']
+    * cat_edit - Retrieve the category to be edited from the db.
 
-    :param str category: The selected category
-    :return: Render the category_edit template
+    .. http:get:: /catalog/(string:category)/edit
+
+        :param category: The selected category
+        :type category: str
+        :return: Render the category_edit template
+
+    .. http:post:: /catalog/(string:category)/edit
+
+        :param str category: The selected category
+        :type category: str
+        :form name: Category name
+        :status 302: and then redirect to :http:get:`/catalog`
+
+    .. :quickref: Category; Edit the given category
     '''
     user = pg_session.query(User).filter_by(google_id=session['id']).one()
     cat_edit = pg_session.query(Category).filter_by(name=category).one()
@@ -151,10 +187,19 @@ def category_delete(category):
     '''
     Delete the given category
 
-    .. :quickref: Category; Delete the given category
+    .. http:get:: /catalog/(string:category)/delete
 
-    :param str category: The selected category
-    :return: Render the category_delete template
+        :param category: The selected category
+        :type category: str
+        :return: Render the category_delete template
+
+    .. http:post:: /catalog/(string:category)/delete
+
+        :param category: The selected category
+        :type category: str
+        :status 302: and then redirect to :http:get:`/catalog`
+
+    .. :quickref: Category; Delete the given category
     '''
     cat_del = pg_session.query(Category).filter_by(name=category).one()
 
@@ -175,22 +220,28 @@ def item_new(category):
     '''
     Create a new item
 
-    method['GET']:
+    .. http:get:: /catalog/(string:category)/new
 
-    * Initially retrieve a list of categories to display in the select options.
-    * Identify the user through their google_id.
+        Initially retrieve a list of categories to display in the select options.
+        Identify the user through their google_id.
 
-    method['POST']:
+        :param category: The selected category
+        :type category: str
+        :return: render template main/item_new
 
-    * Retrieve the category id number by the request.form['cat_select']
-    * Retrieve the user id number through the session['id']
-    * Create newItem with info form request.form and retrieved cat.id and user.id
-    * Redirect to list_items route
+    .. http:post:: /catalog/(string:category)/new
+
+        Retrieve the category id number by the request.form['cat_select']
+        Retrieve the user id number through the session['id']
+        Create newItem with info form request.form and retrieved cat.id and user.id
+        Redirect to list_items route
+
+        :param category: The selected category
+        :type category: str
+        :form name: Items name
+        :status 302: and then redirect to :http:get:`/catalog/(string:category)`
 
     .. :quickref: Item; Create a new item
-
-    :param str category: The selected category
-    :return: Render the item_new template
     '''
     # Retrieve a list of categories to display in the form
     categories = pg_session.query(Category).order_by(Category.name.asc())
@@ -226,11 +277,27 @@ def item_edit(category, item):
     '''
     Edit the given item
 
-    .. :quickref: Item; Edit the given item
+    .. http:get:: /catalog/(string:category)/(string:item)/edit
 
-    :param str category: The selected category
-    :param str item: The selected item
-    :return: Render the item_edit template
+        :param category: The selected category
+        :type category: str
+        :param item: The selected item
+        :type item: str
+        :return: Render item_edit template
+
+    .. http:post:: /catalog/(string:category)/(string:item)/edit
+
+        :param category: The selected category
+        :type category: str
+        :param item: The selected item
+        :type item: str
+        :form name: Item name
+        :form description: Item description
+        :form category: Item category
+        :status 302: and then redirect to \
+            :http:get:`/catalog/(string:category)/(string:item)`
+
+    .. :quickref: Item; Edit the given item
     '''
     # Retrieve a list of categories to display in the form
     categories = pg_session.query(Category).order_by(Category.name.asc())
@@ -272,11 +339,25 @@ def item_delete(category, item):
     '''
     Delete the given item
 
-    .. :quickref: Item; Delete the given item
+    .. http:get:: /catalog/(string:category)/(string:item)/delete
 
-    :param str category: The selected category
-    :param str item: The selected item
-    :return: Render the item_delete template
+        :param category: The selected category
+        :type category: str
+        :param item: The selected item
+        :type item: str
+        :return: Render item_delete template
+
+    .. http:post:: /catalog/(string:category)/(string:item)/delete
+
+        :param category: The selected category
+        :type category: str
+        :param item: The selected item
+        :type item: str
+        :status 302: and then redirect to \
+            :http:get:`/catalog/(string:category)`
+
+
+    .. :quickref: Item; Delete the given item
     '''
     if request.method == 'POST':
         item_del = pg_session.query(Item).filter_by(name=item).one()
