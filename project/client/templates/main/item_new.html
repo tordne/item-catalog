@@ -2,14 +2,27 @@
 
 {% block content %}
 <section class="main-inner">
-	<form action="{{ url_for('main.item_new', category=category) }}" method="POST" class="flex">
-		<div class="main-buttons">
-			<a href="{{ url_for('main.list_categories') }}" class="button cancel">Cancel</a>
-			<button type="submit" class="button create">Create</button>
-		</div>
-		<label class="input-label">Create a New Item</label>
-		<input type="text" name="item" value="New Item" class="input-oneline">
-	</form>
-
+  <form action="{{ url_for('main.item_new', category=category) }}" method="POST" class="flex">
+    <div class="main-buttons">
+      <a href="{{ url_for('main.list_items', category=category) }}" class="button cancel">Cancel</a>
+      <button type="submit" class="button create">Create</button>
+    </div>
+    <label class="input-label">Create a New Item</label>
+    <input type="text" name="name" value="New item" class="input-oneline">
+    <label class="input-label">Description</label>
+    <textarea name="description" class="input-multiline">Add a description here.</textarea>
+    <label class=input-label>Category</label>
+    <select name="cat_select" class="input-dropdown">
+      {% if categories != [] %}
+        {% for cat in categories %}
+          {% if cat.name == category %}
+            <option value="{{ cat.name }}" selected="selected">{{ cat.name }}</option>
+          {% else %}
+            <option value="{{ cat.name }}">{{ cat.name }}</option>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </select>
+  </form>
 </section>
 {% endblock %}

@@ -1,44 +1,45 @@
 <!DOCTYPE html>
 <html lang="eng-GB">
 <head>
-	<meta charset="utf-8">
-	<title>Catalog</title>
-	<!-- Meta -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Udacity Catalog project">
-	<meta name="author" content="Christopher Berdahl">
-	<!-- Styles -->
-	<link href="https://fonts.googleapis.com/css?family=Fjalla+One|Open+Sans+Condensed:300" rel="stylesheet">
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/catalog.css')}}" media="screen">
-	<!-- Java scripts -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="{{ url_for('static', filename='js/close-alerts.js') }}"></script>
+  <meta charset="utf-8">
+  <title>Catalog</title>
+  <!-- Meta -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Udacity Catalog project">
+  <meta name="author" content="Christopher Berdahl">
+  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Open+Sans+Condensed:300" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/catalog.css')}}" media="screen">
+  <!-- Java scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+  <script src="{{ url_for('static', filename='js/close-alerts.js') }}"></script>
 </head>
 <body>
 
-	{% include 'header.html' %}
+  {% include 'header.html' %}
 
-	<main>
+  <main>
 
-		<!-- messages -->
-      {% with messages = get_flashed_messages(with_categories=true) %}
+  <!-- messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         <section class="main-messages">
-        	{% for category, message in messages %}
+          {% for category, message in messages %}
             <div class="alert alert-{{ category }} alert-dismissable">
-            	<div class="alert-text">
-	              {{message}}
-	              <a class="alert-close" title="Close" data-dismiss="alert">&times;</a>
+              <div class="alert-text">
+                {{message}}
+                <a class="alert-close" title="Close" data-dismiss="alert">&times;</a>
              </div>
             </div>
           {% endfor %}
         </section>
-        {% endif %}
-        {% endwith %}
+      {% endif %}
+    {% endwith %}
 
-	<!-- child template -->
-	{% block content %}{% endblock %}
+  <!-- child template -->
+  {% block content %}{% endblock %}
 
-	</main>
+  </main>
 </body>
 </html>

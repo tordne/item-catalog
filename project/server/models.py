@@ -6,6 +6,7 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, DateTime, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 from sqlalchemy import create_engine
 
 import os
@@ -15,7 +16,7 @@ Base = declarative_base()
 
 class User(Base):
     '''
-    The User class contains 3 attributes id, name, email
+    The User class has 4 attributes which are retrieved from google OAuth
 
     .. py:attribute:: id
         Integer, primary_key=True
@@ -36,8 +37,12 @@ class User(Base):
 
 class Category(Base):
     '''
-    The Category class has has 2 basic attributes id, name
-    The 3rd attribute is the relationship with 'User' table
+    The Category class has has 2 basic attributes id, name.
+
+    The 3rd attribute is the relationship with 'User' table.
+
+    There is another attribute 'items' which makes sure that when the category
+    is deleted that all it's children are removed too.
 
     .. py:attribute:: id
         Integer, primary_key=True
@@ -46,7 +51,10 @@ class Category(Base):
     .. py:attribute:: user_id
         Integer, ForeignKey('user.id')
     .. py:attribute:: user
-        relationship(User
+        relationship(User)
+
+    .. py:attribute:: items
+        relationship("Item", cascade="save-update, merge, delete")
     '''
     __tablename__ = 'category'
 
@@ -55,10 +63,20 @@ class Category(Base):
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
 
+    items = relationship("Item", cascade="save-update, merge, delete")
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'user_id': self.user_id,
+        }
+
 
 class Item(Base):
     '''
-    The Item class has 3 basic attr. id, name, description
+    The Item class has 4basic attr. id, name, description and date_time.
     The 3rd and 4th attr. are relationships to the User and Category tables
 
     .. py:attribute:: id
@@ -66,7 +84,9 @@ class Item(Base):
     .. py:attribute:: name
         String(250), nullable=False
     .. py:attribute:: description
-        String(250)
+        String(500)
+    .. py:attribute:: date_time
+        DateTime, nullable=False, default=datetime.utcnow()
 
     .. py:attribute:: category_id
         Integer, ForeignKey('category.id')
@@ -82,25 +102,43 @@ class Item(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
-    description = Column(String(250))
+    description = Column(String(500))
+    date_time = Column(DateTime,
+                       nullable=False,
+                       server_default=func.now(),
+                       onupdate=func.now())
+
     category_id = Column(Integer, ForeignKey('category.id'))
     category = relationship(Category)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'date_time': self.date_time,
+            'category_id': self.category_id,
+            'user_id': self.user_id,
+        }
 
 
 class Credential(Base):
     '''
     This Authentication class contains the authentication token and credentials.
 
+    It also cotains a relationship with the User.
+
     .. py:attribute:: id
         Integer, primary_key=True
     .. py:attribute:: cred_token
-        String(129), nullable=False
+        String(150), nullable=False
     .. py:attribute:: cred_expiry
         DateTime, nullable=False
     .. py:attribute:: cred_refresh
-        String(45), nullable=False
+        String(150), nullable=False
 
     .. py:attribute:: user_id
         Integer, ForeignKey('user.id')
@@ -110,9 +148,9 @@ class Credential(Base):
     __tablename__ = 'credential'
 
     id = Column(Integer, primary_key=True)
-    cred_token = Column(String(129), nullable=False)
+    cred_token = Column(String(150), nullable=False)
     cred_expiry = Column(DateTime, nullable=False)
-    cred_refresh = Column(String(45), nullable=True)
+    cred_refresh = Column(String(150), nullable=True)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
 

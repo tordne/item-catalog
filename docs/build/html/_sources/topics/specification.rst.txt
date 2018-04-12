@@ -1,5 +1,5 @@
-Project Specification -- Item Catalog
-=====================================
+Udacity Project Specification -- Item Catalog
+=============================================
 
 API Endpoints
 --------------

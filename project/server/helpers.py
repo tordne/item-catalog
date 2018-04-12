@@ -1,13 +1,14 @@
 # project/server/helpers.py
 '''
 .. module:: helpers
-	:synopsis: These are global helpers used throughout the blueprints.
+    :synopsis: These are global helpers used throughout the blueprints.
 '''
 from flask import session, redirect, url_for, flash
 
 from functools import wraps
 
 import pdb
+
 
 def login_required(f):
     '''
@@ -38,7 +39,7 @@ def credentials_to_dict(credentials):
         client_id, client_secret, scopes
     '''
     return {'token': credentials.token,
-    		'expiry': credentials.expiry,
+            'expiry': credentials.expiry,
             'refresh': credentials.refresh_token,
             'token_uri': credentials.token_uri,
             'client_id': credentials.client_id,

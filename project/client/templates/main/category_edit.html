@@ -2,14 +2,13 @@
 
 {% block content %}
 <section class="main-inner">
-	<form action="{{ url_for('main.category_edit', category=category) }}" method="POST" class="flex">
-		<div class="main-buttons">
-			<a href="{{ url_for('main.list_categories') }}" class="button cancel">Cancel</a>
-			<button type="submit" class="button create">Edit</button>
-		</div>
-		<label class="input-label">Edit Category</label>
-		<input type="text" name="category" value="{{ category }}" class="input-oneline">
-	</form>
-
+  <form action="{{ url_for('main.category_edit', category=category) }}" method="POST" class="flex">
+    <div class="main-buttons">
+      <a href="{{ url_for('main.list_categories') }}" class="button cancel">Cancel</a>
+      <button type="submit" class="button create">Edit</button>
+    </div>
+    <label class="input-label">Edit Category</label>
+    <input type="text" name="category" value="{{ category }}" class="input-oneline">
+  </form>
 </section>
 {% endblock %}

@@ -2,12 +2,16 @@
 
 {% block content %}
 <section class="main-inner">
-	<section class="main-buttons">
-		<a href="" class="button">Edit Item</a>
-		<a href="" class="button">Delete Item</a>
-	</section>
-	<section class="description">
-		<h1>{{ item }}</h1>
-		<p>This item belongs to {{ category }}</p>
-	</section>
+  <section class="main-buttons">
+    {% if 'logged_in' in session %}
+      <a href="{{ url_for('main.item_edit', category=items.category.name, item=items.name) }}" class="button">Edit Item</a>
+      <a href="{{ url_for('main.item_delete', category=items.category.name, item=items.name) }}" class="button">Delete Item</a>
+    {% endif %}
+  </section>
+  <section class="description">
+    <h1>{{ items.name }}</h1>
+    <p class="items-description">This item belongs to: </p>
+    <a href="{{ url_for('main.list_items', category=items.category.name) }}" class="items-description items-text">({{ items.category.name }})</a>
+    <p>{{ items.description }}</p>
+  </section>
 {% endblock %}

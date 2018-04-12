@@ -105,11 +105,6 @@ def oauth2callback():
     When successful, fetch the OAuth2 tokens and store the credentials
 
     .. :quickref: User; Fetch the Oauth2 tokens and store credentials
-
-    .. todo:: def oauth2callback()
-
-        * Check if user already exist in database
-        * Add user in database if not exist
     '''
     # Check if user is logged_in, then redirect to main page.
     if session.get('logged_in', None) == True:
@@ -156,7 +151,7 @@ def oauth2callback():
         pg_session.commit()
         user = pg_session.query(User).filter_by(
             email=session['email']).one()
-        #pdb.set_trace()
+        # pdb.set_trace()
         # Add the new credentials to the Credential Database
         creds = Credential(cred_token=session['credentials']['token'],
                            cred_expiry=session['credentials']['expiry'],
