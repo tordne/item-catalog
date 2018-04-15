@@ -74,7 +74,8 @@ def authorize():
     .. :quickref: User; Create a flow instance to manage the OAuth2
     '''
     # Check if user is logged_in, then redirect to main page.
-    if session.get('logged_in', None) == True:
+    if session.get('logged_in', None):
+        flash('You are already logged in.', 'warning')
         return redirect(url_for('main.list_categories'))
 
     # Create the flow instance using the client secret file
@@ -107,7 +108,8 @@ def oauth2callback():
     .. :quickref: User; Fetch the Oauth2 tokens and store credentials
     '''
     # Check if user is logged_in, then redirect to main page.
-    if session.get('logged_in', None) == True:
+    if session.get('logged_in', None):
+        flash('You are already logged in', 'warning')
         return redirect(url_for('main.list_categories'))
 
     # In a development environment allow insecure transport
@@ -151,7 +153,7 @@ def oauth2callback():
         pg_session.commit()
         user = pg_session.query(User).filter_by(
             email=session['email']).one()
-        # pdb.set_trace()
+
         # Add the new credentials to the Credential Database
         creds = Credential(cred_token=session['credentials']['token'],
                            cred_expiry=session['credentials']['expiry'],
@@ -161,13 +163,12 @@ def oauth2callback():
         pg_session.commit()
 
         # Flash message of correct login
+        flash('User {} is authorized'.format(data['name']), 'success')
+    else:
+        # Flash message of correct login
         flash('Welcome back, {}'.format(data['name']), 'success')
 
-        # Redirect the user back to the main page.
-        return redirect(url_for('main.list_categories'))
-
-    # Flash message of correct login
-    flash('User {} is authorized'.format(data['name']), 'success')
+    session['user_id'] = user.id
 
     # Redirect the user back to the main page.
     return redirect(url_for('main.list_categories'))
