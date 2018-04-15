@@ -43,6 +43,15 @@
   <div class="section" id="module-project.server.helpers">
 <span id="global-helpers"></span><h1>Global Helpers<a class="headerlink" href="#module-project.server.helpers" title="Permalink to this headline">¶</a></h1>
 <span class="target" id="module-helpers"></span><dl class="function">
+<dt id="project.server.helpers.check_authentication">
+<code class="descclassname">project.server.helpers.</code><code class="descname">check_authentication</code><span class="sig-paren">(</span><em>d</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/server/helpers.html#check_authentication"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#project.server.helpers.check_authentication" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a decorator function which runs after the login_required.
+The function checks if the user who wants to edit or delete the item
+or category is the owner.
+If the user is not the owner a warning message will flash.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="project.server.helpers.credentials_to_dict">
 <code class="descclassname">project.server.helpers.</code><code class="descname">credentials_to_dict</code><span class="sig-paren">(</span><em>credentials</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/project/server/helpers.html#credentials_to_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#project.server.helpers.credentials_to_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Take the credentials and return it as a dict.</p>
@@ -54,7 +63,7 @@
 </tr>
 <tr class="field-even field"><th class="field-name">Type:</th><td class="field-body">constructed credentials</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a dict with the following keys: token, expiry, refresh, token_uri,         client_id, client_secret, scopes</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a dict with the following keys: token, expiry, refresh,         token_uri, client_id, client_secret, scopes</td>
 </tr>
 </tbody>
 </table>
