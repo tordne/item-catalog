@@ -5,7 +5,8 @@ from flask import Blueprint, render_template, session, url_for, \
 
 from project.server import pg_session
 from project.server.models import User, Category, Item
-from project.server.helpers import login_required
+from project.server.helpers import login_required, check_authentication
+from functools import wraps
 
 import pdb
 
@@ -142,6 +143,7 @@ def category_new():
 @main_blueprint.route('/catalog/<string:category>/edit',
                       methods=['GET', 'POST'])
 @login_required
+@check_authentication
 def category_edit(category):
     '''
     Edit the given category
@@ -183,6 +185,7 @@ def category_edit(category):
 @main_blueprint.route('/catalog/<string:category>/delete',
                       methods=['GET', 'POST'])
 @login_required
+@check_authentication
 def category_delete(category):
     '''
     Delete the given category
@@ -222,8 +225,8 @@ def item_new(category):
 
     .. http:get:: /catalog/(string:category)/new
 
-        Initially retrieve a list of categories to display in the select options.
-        Identify the user through their google_id.
+        Initially retrieve a list of categories to display in the select
+        options. Identify the user through their google_id.
 
         :param category: The selected category
         :type category: str
@@ -233,13 +236,14 @@ def item_new(category):
 
         Retrieve the category id number by the request.form['cat_select']
         Retrieve the user id number through the session['id']
-        Create newItem with info form request.form and retrieved cat.id and user.id
-        Redirect to list_items route
+        Create newItem with info form request.form and retrieved cat.id
+        and user.id. Redirect to list_items route
 
         :param category: The selected category
         :type category: str
         :form name: Items name
-        :status 302: and then redirect to :http:get:`/catalog/(string:category)`
+        :status 302: and then redirect
+            to :http:get:`/catalog/(string:category)`
 
     .. :quickref: Item; Create a new item
     '''
@@ -274,6 +278,7 @@ def item_new(category):
 @main_blueprint.route('/catalog/<string:category>/<string:item>/edit',
                       methods=['GET', 'POST'])
 @login_required
+@check_authentication
 def item_edit(category, item):
     '''
     Edit the given item
@@ -336,6 +341,7 @@ def item_edit(category, item):
 @main_blueprint.route('/catalog/<string:category>/<string:item>/delete',
                       methods=['GET', 'POST'])
 @login_required
+@check_authentication
 def item_delete(category, item):
     '''
     Delete the given item

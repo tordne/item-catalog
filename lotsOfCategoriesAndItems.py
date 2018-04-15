@@ -7,8 +7,9 @@ from sqlalchemy.orm import sessionmaker
 
 from project.server.models import Base, User, Category, Item
 
+import os
 
-engine = create_engine('postgresql://vagrant:vagrant@localhost/catalog')
+engine = create_engine(os.environ['DATABASE_URL'])
 
 Base.metadata.bind = engine
 
@@ -47,7 +48,8 @@ item1 = Item(name="Amborellales",
              description="Amborella is a sprawling shrub or small tree up to \
              8 m high. It bears alternate or decussate, simple evergreen \
              leaves without stipules. The leaves are two-ranked, with \
-             distinctly serrated or rippled margins, and about 8 to 10 cm long.",
+             distinctly serrated or rippled margins, \
+             and about 8 to 10 cm long.",
              category_id=1,
              user_id=1)
 
@@ -90,7 +92,7 @@ item1 = Item(name="Nymphaeales",
              description="Well-known plants which may be included in this \
              order include black pepper, kava, lizard's tail, birthwort, \
              and wild ginger.",
-             category_id=2,
+             category_id=1,
              user_id=1)
 
 
@@ -113,8 +115,8 @@ item3 = Item(name="Acorales",
 item4 = Item(name="Ranunculales",
              description="Ranunculales is an order of flowering plants. Of \
              necessity it contains the family Ranunculaceae, the buttercup \
-             family, because the name of the order is based on the name of a \
-             genus in that family.",
+             family, because the name of the order is based on the name of \
+             a genus in that family.",
              category_id=4,
              user_id=1)
 
@@ -133,7 +135,8 @@ sleep(1)
 item1 = Item(name="Illiciales",
              description="Illiciales is an order of flowering plants that is \
              not recognized by the current most widely used system of plant \
-             classification, the Angiosperm Phylogeny Group's APG III system.",
+             classification, the Angiosperm Phylogeny Group's \
+             APG III system.",
              category_id=1,
              user_id=1)
 
@@ -150,8 +153,8 @@ item3 = Item(name="Asparagales",
              description="The leaves of almost all species form a tight \
              rosette, either at the base of the plant or at the end of the \
              stem, but occasionally along the stem. The flowers are not \
-             particularly distinctive, being 'lily type', with six tepals and \
-             up to six stamina.",
+             particularly distinctive, being 'lily type', \
+             with six tepals and up to six stamina.",
              category_id=3,
              user_id=1)
 
@@ -161,8 +164,8 @@ item4 = Item(name="Trochodendraceae",
              species[1] found in south east Asia. The two living species \
              (Tetracentron sinense and Trochodendron aralioides) both have \
              secondary xylem without vessel elements, which is quite rare in \
-             angiosperms. As the vessel-free wood suggests primitiveness, these \
-             two species have attracted much taxonomic attention.",
+             angiosperms. As the vessel-free wood suggests primitiveness, \
+             these two species have attracted much taxonomic attention.",
              category_id=4,
              user_id=1)
 

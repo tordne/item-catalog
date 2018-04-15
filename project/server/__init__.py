@@ -10,7 +10,6 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 from project.server.models import Base, User, Category, Item, Credential
-from project.server.helpers import login_required, credentials_to_dict
 
 
 ''' Create Flask instance and set Application Environment
@@ -42,6 +41,14 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 # Create a session connecting to the staging zone
 pg_session = DBSession()
+
+
+''' Import Global Helper Functions after all the database sessions
+have been staged
+'''
+
+from project.server.helpers import login_required, credentials_to_dict
+from project.server.helpers import check_authentication
 
 
 ''' Blueprints

@@ -127,7 +127,8 @@ class Item(Base):
 
 class Credential(Base):
     '''
-    This Authentication class contains the authentication token and credentials.
+    This Authentication class contains the authentication token and
+    credentials.
 
     It also cotains a relationship with the User.
 
